@@ -6,6 +6,10 @@ public class GameMap implements Serializable {
 
     Area[][] grid  = new Area[3][3];
 
+    Equipment jadeMonkey;
+    Equipment roadMap;
+    Equipment iceScraper;
+
     public GameMap() {
 
         grid[0][0] = new Area(true);
@@ -20,9 +24,9 @@ public class GameMap implements Serializable {
 
 
         //  list of items
-        Equipment jadeMonkey = new Equipment("Jade Monkey", 10, 10);
-        Equipment roadMap = new Equipment("Road Map", 15, 2);
-        Equipment iceScraper = new Equipment("Ice Scraper", 20, 8);
+        jadeMonkey = new Equipment("Jade Monkey", 10, 10);
+        roadMap = new Equipment("Road Map", 15, 2);
+        iceScraper = new Equipment("Ice Scraper", 20, 8);
 
         Equipment item1 = new Equipment("Helmet", 2, 4.0);
         Equipment item2 = new Equipment("Shoe", 3, 0.5);
@@ -80,7 +84,5 @@ public class GameMap implements Serializable {
     public Area getArea(int col, int row) {
         return this.grid[col][row];
     }
-
-
 
 }

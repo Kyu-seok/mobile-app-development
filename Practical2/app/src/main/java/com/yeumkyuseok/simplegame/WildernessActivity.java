@@ -1,20 +1,18 @@
 package com.yeumkyuseok.simplegame;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DecimalFormat;
-import java.util.List;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class MarketActivity extends AppCompatActivity {
-    private static final String TAG = "MarketActivity";
+import java.text.DecimalFormat;
+
+public class WildernessActivity extends AppCompatActivity {
+    private static final String TAG = "Wilderness";
 
     TextView textMarketName;
     TextView textItemName;
@@ -40,7 +38,7 @@ public class MarketActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_market);
+        setContentView(R.layout.activity_wilderness);
 
         Intent intent = getIntent();
         gameMap = (GameMap) intent.getSerializableExtra("gameMap");
@@ -71,32 +69,27 @@ public class MarketActivity extends AppCompatActivity {
                 if (isMarket) {
                     if (getCurrItem() != null) {
                         Item currItem = getCurrItem();
-                        if (player.getCash() >= currItem.getValue()) {
-                            player.setCash(player.getCash() - currItem.getValue());
-                            if (getCurrItem() instanceof Equipment) {
-                                player.addPlayerItem((Equipment) getCurrItem());
-                                gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().remove(currNumber);
-                            } else {
-                                player.setHealth(player.getHealth() + ((Food) currItem).getHealth());
-                                if (player.getHealth() > 100) {
-                                    player.setHealth(100);
-                                }
-                                gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().remove(currNumber);
-                            }
-                            if (currNumber != 0) {
-                                currNumber -= 1;
-                            }
-                            updateAllDisplay();
+                        if (getCurrItem() instanceof Equipment) {
+                            player.addPlayerItem((Equipment) getCurrItem());
+                            gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().remove(currNumber);
                         } else {
-                            Toast.makeText(MarketActivity.this, "Not enough money", Toast.LENGTH_SHORT).show();
+                            player.setHealth(player.getHealth() + ((Food) currItem).getHealth());
+                            if (player.getHealth() > 100) {
+                                player.setHealth(100);
+                            }
+                            gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().remove(currNumber);
                         }
+                        if (currNumber != 0) {
+                            currNumber -= 1;
+                        }
+                        updateAllDisplay();
                     } else {
-                        Toast.makeText(MarketActivity.this, "Empty", Toast.LENGTH_SHORT).show();
-                    };
+                        Toast.makeText(WildernessActivity.this, "Empty", Toast.LENGTH_SHORT).show();
+                    }
+                    ;
                 } else {
                     if (!player.getEquipment().isEmpty()) {
                         Equipment currEquipment = player.getEquipment().get(currNumber);
-                        player.setCash(player.getCash() + (currEquipment.getValue() / 2) );
                         gameMap.getArea(player.getColLocation(), player.getRowLocation()).addItems(currEquipment);
                         player.getEquipment().remove(currNumber);
                         if (currNumber != 0) {
@@ -104,7 +97,7 @@ public class MarketActivity extends AppCompatActivity {
                         }
                         updateAllPlayerDisplay();
                     } else {
-                        Toast.makeText(MarketActivity.this, "Empty", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WildernessActivity.this, "Empty", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -116,17 +109,11 @@ public class MarketActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (checkLoseCondition()) {
-                    Toast.makeText(MarketActivity.this, "LOSE!!!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MarketActivity.this, MainActivity.class);
-                    startActivity(intent);
-                } else if (checkWinCondition() ) {
-                    Log.d(TAG, "checkWinCondition: The player has collect all itmes!!!!!");
-                    Toast.makeText(MarketActivity.this, "WIN!!!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MarketActivity.this, MainActivity.class);
+                    Toast.makeText(WildernessActivity.this, "LOSE!!!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(WildernessActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
-
-                    Intent intent = new Intent(MarketActivity.this, MainActivity.class);
+                    Intent intent = new Intent(WildernessActivity.this, MainActivity.class);
                     intent.putExtra("gameMap", gameMap);
                     intent.putExtra("player", player);
 
@@ -175,7 +162,7 @@ public class MarketActivity extends AppCompatActivity {
                 } else {
                     if (player.getEquipment().size() > 1) {
                         if (currNumber > 0) {
-                            currNumber --;
+                            currNumber--;
                             updateAllPlayerDisplay();
                         }
                     }
@@ -198,19 +185,17 @@ public class MarketActivity extends AppCompatActivity {
         });
 
 
-
     }
 
 
-
     public void updateAllDisplay() {
-        textMarketName.setText("Market");
+        textMarketName.setText("Wilderness");
         if (!gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().isEmpty()) {
             Item currItem = gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().get(currNumber);
             boolean isEquipment = (currItem instanceof Equipment);
             textItemName.setText(currItem.getDescription());
             textListNum.setText((currNumber + 1) + "/" + gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().size());
-            textItemPrice.setText("Price: " + currItem.getValue());
+            textItemPrice.setText("Price: free");
 
             if (isEquipment) {
                 textItemMass.setText("Mass: " + ((Equipment) gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().get(currNumber)).getMass());
@@ -225,7 +210,7 @@ public class MarketActivity extends AppCompatActivity {
             textItemMass.setText("Mass: -");
         }
 
-        btnBuy.setText("Buy");
+        btnBuy.setText("Get");
         btnMyEquipment.setText("My equipment");
         textMarketCash.setText("Cash: " + player.getCash());
         DecimalFormat df3 = new DecimalFormat("#.##");
@@ -239,7 +224,7 @@ public class MarketActivity extends AppCompatActivity {
             Equipment currEquipment = player.getEquipment().get(currNumber);
             textItemName.setText(currEquipment.getDescription());
             textListNum.setText((currNumber + 1) + "/" + player.getEquipment().size());
-            textItemPrice.setText("Price: " + (currEquipment.getValue()) );
+            textItemPrice.setText("Price: " + (currEquipment.getValue()));
             textItemMass.setText("Mass: " + currEquipment.getMass());
 
         } else {
@@ -249,7 +234,7 @@ public class MarketActivity extends AppCompatActivity {
             textItemMass.setText("Mass: -");
         }
 
-        btnBuy.setText("Sell");
+        btnBuy.setText("Drop");
         btnMyEquipment.setText("Market");
         textMarketCash.setText("Cash: " + player.getCash());
         DecimalFormat df3 = new DecimalFormat("#.##");
@@ -265,36 +250,10 @@ public class MarketActivity extends AppCompatActivity {
         } else {
             return gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().get(currNumber);
         }
-    }
 
-    public boolean checkWinCondition() {
-        List<Equipment> itemList = player.getEquipment();
-        boolean hasJadeMonkey = false;
-        boolean hasRoadMap = false;
-        boolean hasIceScraper = false;
-        boolean hasAll = false;
-
-
-        for (int i = 0 ; i < itemList.size(); i++) {
-            if (itemList.get(i).getDescription().equals("Jade Monkey")) {
-                hasJadeMonkey = true;
-            }
-            if (itemList.get(i).getDescription().equals("Road Map")) {
-                hasRoadMap = true;
-            }
-            if (itemList.get(i).getDescription().equals("Ice Scraper")) {
-                hasIceScraper = true;
-            }
-        }
-
-        if (hasJadeMonkey && hasRoadMap && hasIceScraper) {
-            hasAll = true;
-        }
-        return hasAll;
     }
 
     public boolean checkLoseCondition() {
         return player.getHealth() <= 0 ? true : false;
     }
-
 }

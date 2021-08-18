@@ -75,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener controllerOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (checkLoseCondition() ) {
+                    Toast.makeText(MainActivity.this, "LOSE!!!", Toast.LENGTH_SHORT).show();
+                    MainActivity.this.getIntent().removeExtra("gameMap");
+                    MainActivity.this.getIntent().removeExtra("player");
+                    MainActivity.this.recreate();
+                }
                 switch (view.getId()) {
                     case R.id.btnNorth:
                         if (0 == player.getColLocation()) {
@@ -146,10 +152,12 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, MarketActivity.class);
                     intent.putExtra("gameMap", gameMap);
                     intent.putExtra("player", player);
-
                     startActivity(intent);
                 } else {
-                    //  intent for wild
+                    Intent intent = new Intent(MainActivity.this, WildernessActivity.class);
+                    intent.putExtra("gameMap", gameMap);
+                    intent.putExtra("player", player);
+                    startActivity(intent);
                 }
             }
         });
@@ -185,6 +193,10 @@ public class MainActivity extends AppCompatActivity {
         double equipmentMass = player.getEquipmentMass();
         player.setHealth(Math.max(0.0, health - 5.0 - (equipmentMass / 2.0)));
         displayNewHealth();
+    }
+
+    public boolean checkLoseCondition() {
+        return player.getHealth() <= 0 ? true : false;
     }
 
 
