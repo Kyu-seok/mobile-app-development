@@ -72,10 +72,12 @@ public class MarketActivity extends AppCompatActivity {
                         if (getCurrItem() instanceof Equipment) {
                             player.addPlayerItem((Equipment) getCurrItem());
                             gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().remove(currNumber);
-                            //  currNumber -= 1; MIGHT NEED TO ALTER currNumber VALUE AFTER PURCHASE
                         } else {
                             player.setHealth(player.getHealth() + ((Food) currItem).getHealth());
                             gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().remove(currNumber);
+                        }
+                        if (currNumber != 0) {
+                            currNumber -= 1;
                         }
                         updateAllDisplay();
                     } else {
@@ -101,6 +103,34 @@ public class MarketActivity extends AppCompatActivity {
                 startActivity(intent, bundle);
             }
         });
+
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //  Code below may cause error when there is no items on the market to display.
+                int itemsSize = gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().size();
+                if ((!gameMap.getArea(player.getColLocation(), player.getRowLocation()).checkIsEmpty()) &&  itemsSize > 1) {
+                    if (currNumber < itemsSize - 1) {
+                        currNumber++;
+                        updateAllDisplay();
+                    }
+                }
+            }
+        });
+
+        btnPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int itemsSize = gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().size();
+                if ((!gameMap.getArea(player.getColLocation(), player.getRowLocation()).checkIsEmpty()) &&  itemsSize > 1) {
+                    if (currNumber > 0) {
+                        currNumber--;
+                        updateAllDisplay();
+                    }
+                }
+            }
+        });
+
 
 
         //  TODO: implement Prev & Next btn functionality
@@ -136,6 +166,34 @@ public class MarketActivity extends AppCompatActivity {
         textMarketHealth.setText("Health: " + df3.format(player.getHealth()));
         textMarketMass.setText("Equipment Mass: " + player.getEquipmentMass());
     }
+
+    public void updateAllPlayerDisplay() {
+        if (!gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().isEmpty()) {
+            Item currItem = gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().get(currNumber);
+            boolean isEquipment = (currItem instanceof Equipment);
+            textItemName.setText(currItem.getDescription());
+            textListNum.setText((currNumber + 1) + "/" + gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().size());
+            textItemPrice.setText("Price: " + currItem.getValue());
+
+            if (isEquipment) {
+                textItemMass.setText("Mass: " + ((Equipment) gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().get(currNumber)).getMass());
+            } else {
+                textItemMass.setText("Health: " + ((Food) gameMap.getArea(player.getColLocation(), player.getRowLocation()).getItems().get(currNumber)).getHealth());
+            }
+
+        } else {
+            textItemName.setText("Empty");
+            textListNum.setText("-/-");
+            textItemPrice.setText("Price: -");
+            textItemMass.setText("Mass: -");
+        }
+
+        textMarketCash.setText("Cash: " + player.getCash());
+        DecimalFormat df3 = new DecimalFormat("#.##");
+        textMarketHealth.setText("Health: " + df3.format(player.getHealth()));
+        textMarketMass.setText("Equipment Mass: " + player.getEquipmentMass());
+    }
+
 
     public Item getCurrItem() {
 

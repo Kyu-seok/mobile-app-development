@@ -16,7 +16,7 @@ public class Player implements Serializable {
     public Player() {
         this.rowLocation = 0;
         this.colLocation = 0;
-        this.cash = 50;
+        this.cash = 100;
         this.health = 100;
         this.equipmentMass = 0;
         this.equipment = new ArrayList<>();
