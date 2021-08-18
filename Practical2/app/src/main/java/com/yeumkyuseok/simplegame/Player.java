@@ -1,9 +1,10 @@
 package com.yeumkyuseok.simplegame;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player implements Serializable {
 
     private int rowLocation;
     private int colLocation;
@@ -45,11 +46,6 @@ public class Player {
         return equipment;
     }
 
-    public void addEquipment(Equipment equipment) {
-        this.equipment.add(equipment);
-        this.equipmentMass += equipment.getMass();
-    }
-
     public void setRowLocation(int rowLocation) {
         this.rowLocation = rowLocation;
     }
@@ -65,6 +61,29 @@ public class Player {
     public void setHealth(double health) {
         this.health = health;
     }
+
+    public void addPlayerItem(Equipment item) {
+        equipment.add(item);
+        setEquipmentMass( calculateEquipmentMass() );
+    }
+
+    public void removeEquipment(Equipment item) {
+        equipment.remove(item);
+        setEquipmentMass( calculateEquipmentMass() );
+    }
+
+    public double calculateEquipmentMass() {
+        double mass = 0;
+        if (equipment.size() == 0) {
+            return mass;
+        } else {
+            for (int i = 0; i < equipment.size(); i++) {
+                mass += equipment.get(i).getMass();
+            }
+        }
+        return mass;
+    }
+
 
     public void setEquipmentMass(double equipmentMass) {
         this.equipmentMass = equipmentMass;

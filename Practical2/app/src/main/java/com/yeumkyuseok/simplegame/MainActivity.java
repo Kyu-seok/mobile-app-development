@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
@@ -24,8 +26,30 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+
+        Log.d(TAG, "onCreate: Activity cycle onCreated Created!!!");
+
+        try {
+            Intent intent = getIntent();
+            if (intent.hasExtra("gameMap")) {
+                Log.d(TAG, "onCreate: INTENT HAS EXTRA gameMap!!!");
+                this.gameMap = (GameMap) intent.getSerializableExtra("gameMap");
+            }
+            if (intent.hasExtra("player")) {
+                this.player = (Player) intent.getSerializableExtra("player");
+            }
+            Log.d(TAG, "onCreate: SUCESSFULLY LOADED INTENT!!!!!");
+        } catch (Exception e) {
+            Log.d(TAG, "onCreate: NO BUNDLE");
+        }
+            //  Intent intent = getIntent();
+            //  this.gameMap = (GameMap) intent.getSerializableExtra("gameMap");
+            //  this.player = (Player) intent.getSerializableExtra("player");
+
+
 
         Button btnNorth = (Button) findViewById(R.id.btnNorth);
         Button btnSouth = (Button) findViewById(R.id.btnSouth);
@@ -60,8 +84,6 @@ public class MainActivity extends AppCompatActivity {
                             displayNewGrid();
                             displayNewMap();
                             playerMove();
-                            //  set new health and display in text using setNewHealth()
-
                         }
                         break;
 
@@ -109,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener restartOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainActivity.this.getIntent().removeExtra("gameMap");
+                MainActivity.this.getIntent().removeExtra("player");
                 MainActivity.this.recreate();
                 Toast.makeText(MainActivity.this, "RESTART", Toast.LENGTH_SHORT).show();
             }
@@ -120,7 +144,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (gameMap.getArea(player.getColLocation(), player.getRowLocation()).isTown()) {
                     Intent intent = new Intent(MainActivity.this, MarketActivity.class);
-                    //  TODO: read document on parcelable
+                    intent.putExtra("gameMap", gameMap);
+                    intent.putExtra("player", player);
 
                     startActivity(intent);
                 } else {
@@ -128,10 +153,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        //  TODO: set option button onlclick
-
-
-        Log.d(TAG, "onCreate: MainActivity: has item -> " + gameMap.getArea(0,0).getItems().get(0).getDescription());
 
     }
 
@@ -150,11 +171,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void displayNewHealth() {
-        this.textHealth.setText("Health: " + player.getHealth());
+        DecimalFormat df3 = new DecimalFormat("#.##");
+        this.textHealth.setText("Health: " + df3.format(player.getHealth()));
     }
 
     public void displayNewEquipmentMass() {
-        this.textEquipmentMass.setText("Equipment Mass: " + player.getEquipmentMass());
+        DecimalFormat df3 = new DecimalFormat("#.##");
+        this.textEquipmentMass.setText("Equipment Mass: " + df3.format(player.getEquipmentMass()));
     }
 
     public void playerMove() {

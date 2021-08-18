@@ -1,6 +1,8 @@
 package com.yeumkyuseok.simplegame;
 
-public class GameMap {
+import java.io.Serializable;
+
+public class GameMap implements Serializable {
 
     Area[][] grid  = new Area[3][3];
 
@@ -78,5 +80,7 @@ public class GameMap {
     public Area getArea(int col, int row) {
         return this.grid[col][row];
     }
+
+
 
 }

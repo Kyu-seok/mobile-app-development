@@ -1,9 +1,10 @@
 package com.yeumkyuseok.simplegame;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Area {
+public class Area implements Serializable {
 
     private boolean town;
     private List<Item> items = new ArrayList<>();
@@ -22,6 +23,10 @@ public class Area {
 
     public List<Item> getItems() {
         return items;
+    }
+
+    public boolean checkIsEmpty() {
+        return (items.isEmpty() ? true : false);
     }
 
 }
