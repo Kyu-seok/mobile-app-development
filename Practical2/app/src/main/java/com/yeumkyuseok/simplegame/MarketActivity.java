@@ -88,7 +88,7 @@ public class MarketActivity extends AppCompatActivity {
                         }
                     } else {
                         Toast.makeText(MarketActivity.this, "Empty", Toast.LENGTH_SHORT).show();
-                    }
+                    };
                 } else {
                     if (!player.getEquipment().isEmpty()) {
                         Equipment currEquipment = player.getEquipment().get(currNumber);
