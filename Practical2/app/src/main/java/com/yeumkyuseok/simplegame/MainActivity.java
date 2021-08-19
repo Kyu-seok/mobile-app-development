@@ -1,5 +1,6 @@
 package com.yeumkyuseok.simplegame;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     TextView textEquipmentMass;
     private GameMap gameMap = new GameMap();
     private Player player = new Player();
+    static boolean isRestarting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 MainActivity.this.getIntent().removeExtra("gameMap");
                 MainActivity.this.getIntent().removeExtra("player");
+                isRestarting = true;
                 MainActivity.this.recreate();
                 Toast.makeText(MainActivity.this, "RESTART", Toast.LENGTH_SHORT).show();
             }
@@ -161,7 +164,35 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        if (!isRestarting) {
+            super.onRestoreInstanceState(savedInstanceState);
+            gameMap = (GameMap) savedInstanceState.getSerializable("gameMap");
+            player = (Player) savedInstanceState.getSerializable("player");
+            displayNewMap();
+            displayNewCash();
+            displayNewGrid();
+            displayNewHealth();
+            displayNewEquipmentMass();
+        } else {
+            isRestarting = false;
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if (!isRestarting) {
+            outState.putSerializable("gameMap", gameMap);
+            outState.putSerializable("player", player);
+            super.onSaveInstanceState(outState);
+        } else {
+            outState.remove("gameMap");
+            outState.remove("player");
+            super.onSaveInstanceState(outState);
+        }
     }
 
     public void displayNewMap() {

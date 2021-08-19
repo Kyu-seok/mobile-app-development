@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.DecimalFormat;
@@ -183,7 +184,28 @@ public class WildernessActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        gameMap = (GameMap) savedInstanceState.getSerializable("gameMap");
+        player = (Player) savedInstanceState.getSerializable("player");
+        isMarket = savedInstanceState.getBoolean("isMarket");
+        if (isMarket) {
+            updateAllDisplay();
+        } else {
+            updateAllPlayerDisplay();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+
+        outState.putSerializable("gameMap", gameMap);
+        outState.putSerializable("player", player);
+        outState.putBoolean("isMarket", isMarket);
+        super.onSaveInstanceState(outState);
 
     }
 

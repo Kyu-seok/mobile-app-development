@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Wilderness"
+        android:text="Market"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,7 @@
         android:id="@+id/textItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="32dp"
         android:text="Name"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -75,28 +75,27 @@
         android:id="@+id/btnPrev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="100dp"
         android:text="Prev"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBuy" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/textListNum"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnBuy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
-        android:text="Sell"
+        android:layout_marginTop="8dp"
+        android:text="Buy"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/textItemName"
         app:layout_constraintStart_toStartOf="@+id/textItemName"
-        app:layout_constraintTop_toBottomOf="@+id/textItemName" />
+        app:layout_constraintTop_toBottomOf="@+id/textItemMass" />
 
     <Button
         android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="100dp"
         android:text="Next"
         app:layout_constraintBaseline_toBaselineOf="@+id/btnPrev"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -116,17 +115,16 @@
         android:id="@+id/textMarketCash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="64dp"
         android:text="cash: 50"
-        app:layout_constraintBottom_toTopOf="@+id/btnLeave"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnLeave"
+        app:layout_constraintStart_toEndOf="@+id/btnLeave" />
 
     <TextView
         android:id="@+id/textMarketHealth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="88dp"
         android:text="Health: 100"
         app:layout_constraintBaseline_toBaselineOf="@+id/textMarketCash"
         app:layout_constraintStart_toEndOf="@+id/btnPrev" />
