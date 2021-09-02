@@ -1,0 +1,7 @@
+Part of COMP2008 practical 3. 
+
+This zip file contains:
+* Drawable vector graphics in app/src/main/res/drawable, which you'll need to 
+  place in the equivalent directory in your project; and
+* Source code for the island builder model classes in app/src/main/java.
+
