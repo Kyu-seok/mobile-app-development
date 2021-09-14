@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="please Enter a Unique ID"
+        android:text="please check availabilty of ID"
         android:textAlignment="textEnd"
         app:layout_constraintEnd_toEndOf="@+id/buttonCheckUnique"
         app:layout_constraintTop_toBottomOf="@+id/buttonCheckUnique" />
@@ -74,11 +74,11 @@
         app:layout_constraintTop_toBottomOf="@+id/textPassword1" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="220dp"
-        android:text="Button"
+        android:text="Register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

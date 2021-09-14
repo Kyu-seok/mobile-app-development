@@ -13,6 +13,7 @@ public class UserList implements Serializable {
     DBModel dbModel = new DBModel();
     Cursor cursor;
 
+
     public UserList() {}
 
     public void load(Context context) {
@@ -45,8 +46,37 @@ public class UserList implements Serializable {
     }
 
     public boolean checkUnique(String userName) {
+        boolean isUnique = false;
+        if (users.size() == 0) {
+            isUnique = true;
+        } else {
+            for (int i = 0 ; i < users.size(); i++) {
+                if (users.get(i).getRole() == 0) {
+                    isUnique = true;
+                }
+            }
+        }
+        return isUnique;
+    }
 
-        return false;
+    public boolean canLogin(String inputUsername, String inputPassword) {
+        boolean loginSuccess = false;
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUser_name().equals(inputUsername) && users.get(i).getPassword().equals(inputPassword)) {
+                loginSuccess = true;
+            }
+        }
+        return loginSuccess;
+    }
+
+    public int checkRole(String username) {
+        int role = -1;
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUser_name().equals(username)) {
+                role = users.get(i).getRole();
+            }
+        }
+        return role;
     }
 
     // todo: implement edit
