@@ -13,7 +13,7 @@ public class DBCursor extends CursorWrapper {
         int id = getInt(getColumnIndex(DBSchema.DBTable.Cols.ID));
         String name = getString(getColumnIndex(DBSchema.DBTable.Cols.NAME));
         int str = getInt(getColumnIndex(DBSchema.DBTable.Cols.STR));
-        int rel  = getInt(getColumnIndex(DBSchema.DBTable.Cols.ID));
+        int rel  = getInt(getColumnIndex(DBSchema.DBTable.Cols.REL));
         return new Faction(id, name, str, rel);
     }
 }

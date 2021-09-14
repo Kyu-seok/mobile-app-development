@@ -1,10 +1,14 @@
 package com.yeumkyuseok.alliesandenemies;
 
+import android.util.Log;
+
 /**
  * Represents one of the various factions.
  */
 public class Faction
 {
+    private static final String TAG = "Faction";
+
     public static final int ENEMY = 0;
     public static final int NEUTRAL = 1;
     public static final int ALLY = 2;
@@ -26,7 +30,10 @@ public class Faction
     {
         if(!(relationship == ENEMY || relationship == NEUTRAL || relationship == ALLY))
         {
+            Log.e(TAG, "Faction name : " + name +
+                    " relationship " + relationship, null);
             throw new IllegalArgumentException();
+
         }
         this.id = id;
         this.name = name;

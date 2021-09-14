@@ -9,7 +9,7 @@ public class DBSchema {
             public static final String ID = "faction_id";
             public static final String NAME = "faction_name";
             public static final String STR = "faction_strength";
-            public static final String REL = "faction_relationship ";
+            public static final String REL = "faction_relationship";
         }
     }
 

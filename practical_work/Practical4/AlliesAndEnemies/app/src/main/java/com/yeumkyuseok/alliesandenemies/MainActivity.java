@@ -1,6 +1,7 @@
 package com.yeumkyuseok.alliesandenemies;
 
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +15,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DBHelper db = new DBHelper(this);
+        DBHelper dbHelper = new DBHelper(this);
+
 
 
         // We've set everything up inside a fragment. This isn't strictly necessary, but can assist

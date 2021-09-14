@@ -19,8 +19,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + DBTable.NAME + "(" +
                 DBTable.Cols.ID + " INTEGER, " +
                 DBTable.Cols.NAME + " TEXT, " +
-                DBTable.Cols.STR + "INTEGER, " +
-                DBTable.Cols.REL + "INTEGER" +
+                DBTable.Cols.STR + " INTEGER, " +
+                DBTable.Cols.REL + " INTEGER" +
                 ")");
     }
 

@@ -29,6 +29,8 @@ public class MainFragment extends Fragment
     private FactionAdapter adapter;
     private LinearLayoutManager rvLayout;
 
+    // DBHelper dbHelper = new
+
     @Override
     public void onCreate(Bundle b)
     {
