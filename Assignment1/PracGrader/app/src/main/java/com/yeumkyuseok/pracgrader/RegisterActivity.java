@@ -62,9 +62,10 @@ public class RegisterActivity extends AppCompatActivity {
                 if (confirmUnique() && passwordCheck()) {
                     User admin = new User("admin", "", inputAdminUserName, password1.getText().toString(), "", 0);
                     userList.add(admin);
+                    Toast.makeText(RegisterActivity.this, "Successfully created Admin account", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    startActivity(intent);
                 }
-                Toast.makeText(RegisterActivity.this, "Successfully created Admin account", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
             }
         });
 
@@ -94,8 +95,8 @@ public class RegisterActivity extends AppCompatActivity {
         if (isChecked && inputAdminUserName.equals(textAdminUserName.getText().toString())) {
             isConfirmed = true;
         } else {
-            textMessage.setText("recheck username");
-            Toast.makeText(RegisterActivity.this, "Please recheck username", Toast.LENGTH_SHORT).show();
+            textMessage.setText("check username");
+            Toast.makeText(RegisterActivity.this, "Please check username", Toast.LENGTH_SHORT).show();
         }
         return isConfirmed;
     }
