@@ -1,6 +1,7 @@
 package com.yeumkyuseok.pracgrader;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,19 +42,18 @@ public class PracticalListAdapter extends RecyclerView.Adapter<PracticalListAdap
         holder.textMarkAssigned.setText(Double.toString(markAssigned[position]));
 
 
-        // TODO : impelement setOnClickListner and move intent to EDIT PRactical info
-        /*
-        holder.mainLayout.setOnClickListener(new View.OnClickListener() {
+        holder.practicalLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, SecondActivity.class);
-                intent.putExtra("mName", mName[position]);
-                intent.putExtra("mDesc", mDesc[position]);
-                intent.putExtra("imgAvatar", R.mipmap.ic_launcher);
+                Intent intent = new Intent(context, CRUDResultActivity.class);
+                // TODO : pass name, email, username, country to AddResultActivity.class using putExtra()
+                intent.putExtra("mode", 1); //edit mode
+                // intent.putExtra("mName", mName[position]);
+                // intent.putExtra("mDesc", mDesc[position]);
+                // intent.putExtra("imgAvatar", R.mipmap.ic_launcher);
                 context.startActivity(intent);
             }
         });
-         */
     }
 
     @Override

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StaffActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/staffActivityToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="StaffActivity" />
+
+    <TextView
+        android:id="@+id/textLoginAs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Logged in as : EXAMPLE"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/staffActivityToolbar" />
+
+    <TextView
+        android:id="@+id/textStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Status : Example"
+        app:layout_constraintStart_toStartOf="@+id/textLoginAs"
+        app:layout_constraintTop_toBottomOf="@+id/textLoginAs" />
+
+    <TextView
+        android:id="@+id/textListTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="ListTitle"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textStatus"
+        app:layout_constraintTop_toBottomOf="@+id/btnStudentList" />
+
+    <EditText
+        android:id="@+id/textSearch"
+        android:layout_width="150dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="Search"
+        android:inputType="textPersonName"
+        android:textSize="14sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textListTitle"
+        app:layout_constraintEnd_toStartOf="@+id/btnSearch" />
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="95dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="8dp"
+        android:text="search"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textSearch"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnStudentList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="view student"
+        android:textSize="8sp"
+        app:layout_constraintStart_toStartOf="@+id/textStatus"
+        app:layout_constraintTop_toBottomOf="@+id/textStatus" />
+
+    <Button
+        android:id="@+id/btnInstructorList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="view instr"
+        android:textSize="8sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnStudentList"
+        app:layout_constraintStart_toEndOf="@+id/btnStudentList" />
+
+    <Button
+        android:id="@+id/btnPracticalList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="view pracs"
+        android:textSize="8sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnInstructorList"
+        app:layout_constraintStart_toEndOf="@+id/btnInstructorList" />
+
+    <Button
+        android:id="@+id/btnAddStudent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="add student"
+        android:textSize="8sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnPracticalList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnPracticalList" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/studentRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textSearch" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

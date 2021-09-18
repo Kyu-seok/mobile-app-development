@@ -33,8 +33,8 @@ public class RegisterActivity extends AppCompatActivity {
         password1 = (TextView) findViewById(R.id.textPassword1);
         password2 = (TextView) findViewById(R.id.textPassword2);
 
-        UserList userList = new UserList();
-        userList.load(this);
+        Data data = new Data();
+        data.load(this);
 
 
 
@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (adminID.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "no input ID", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (userList.checkUnique(adminID)) {
+                    if (data.checkUnique(adminID)) {
                         RegisterActivity.this.isChecked = true;
                         textMessage.setText("username is unique");
                     } else {
@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (confirmUnique() && passwordCheck()) {
                     User admin = new User("admin", "", inputAdminUserName, password1.getText().toString(), "", 0, -1);
-                    userList.add(admin);
+                    data.add(admin);
                     Toast.makeText(RegisterActivity.this, "Successfully created Admin account", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     startActivity(intent);

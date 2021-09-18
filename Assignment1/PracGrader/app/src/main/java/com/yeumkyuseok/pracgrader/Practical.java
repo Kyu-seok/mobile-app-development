@@ -4,14 +4,12 @@ public class Practical {
 
     private String title;
     private String description;
-    private double mark;
-    private String student_name;
+    private double totalMark;
 
-    public Practical(String title, String description, double mark, String student_name) {
+    public Practical(String title, String description, double totalMark) {
         this.title = title;
         this.description = description;
-        this.mark = mark;
-        this.student_name = student_name;
+        this.totalMark = totalMark;
     }
 
     public String getTitle() {
@@ -31,18 +29,11 @@ public class Practical {
     }
 
     public double getMark() {
-        return mark;
+        return totalMark;
     }
 
     public void setMark(double mark) {
-        this.mark = mark;
+        this.totalMark = mark;
     }
 
-    public String getStudent_name() {
-        return student_name;
-    }
-
-    public void setStudent_name(String student_name) {
-        this.student_name = student_name;
-    }
 }

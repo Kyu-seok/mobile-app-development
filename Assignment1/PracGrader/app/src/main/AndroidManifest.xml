@@ -10,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PracGrader">
         <activity
+            android:name=".CRUDResultActivity"
+            android:exported="true"
+            android:parentActivityName=".SingleStudentActivity"/>
+        <activity
             android:name=".SingleStudentActivity"
             android:exported="true"
-            android:parentActivityName=".StaffActivity"/>
+            android:parentActivityName=".StaffActivity" />
         <activity
             android:name=".StaffActivity"
             android:exported="true"

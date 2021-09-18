@@ -24,8 +24,8 @@ public class LoginActivity extends AppCompatActivity {
         textPassword = (TextView) findViewById(R.id.textPassword);
         btnLogin = (Button) findViewById(R.id.buttonLogin);
 
-        UserList userList = new UserList();
-        userList.load(this);
+        Data data = new Data();
+        data.load(this);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,9 +33,9 @@ public class LoginActivity extends AppCompatActivity {
                 String inputUsername = textUsername.getText().toString();
                 String inputPassword = textPassword.getText().toString();
 
-                if (userList.canLogin(inputUsername, inputPassword)) {
+                if (data.canLogin(inputUsername, inputPassword)) {
                     Toast.makeText(LoginActivity.this, "Successfully Login", Toast.LENGTH_SHORT).show();
-                    int role = userList.checkRole(inputUsername);   // if role is -1, there will be error
+                    int role = data.checkRole(inputUsername);   // if role is -1, there will be error
                     if (role == 0 || role == 1) {
                         if (role == 0) {
                             Toast.makeText(LoginActivity.this, "Logged in as Admin", Toast.LENGTH_SHORT).show();

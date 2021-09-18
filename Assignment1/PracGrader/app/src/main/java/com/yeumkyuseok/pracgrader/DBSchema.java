@@ -23,8 +23,17 @@ public class DBSchema {
         public static class Cols {
             public static final String TITLE = "title";
             public static final String DESC = "description";
-            public static final String MARK = "mark";
+            public static final String MARK = "total_mark";
+        }
+    }
+
+    public static class TakenPracTable {
+        public static final String NAME = "takenPrac";
+
+        public static class Cols {
             public static final String USERNAME = "user_name";
+            public static final String PRAC_TITLE = "prac_title";
+            public static final String MARK_SCORED = "mark_scored";
         }
     }
 

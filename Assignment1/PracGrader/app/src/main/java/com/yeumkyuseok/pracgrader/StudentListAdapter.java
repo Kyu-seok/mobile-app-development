@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Point;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,16 +17,21 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.StudentViewHolder> {
 
-    String mNames[];
-    double mMarks[];
+    private static final String TAG = "StudentListAdapter";
+    List<User> tempUsers;
+
+    // String mNames[];
+    // double mMarks[];
     Context context;
 
-    public StudentListAdapter(Context context, String[] mNames, double[] mMarks) {
+    public StudentListAdapter(Context context, List<User> tempUsers) {
         this.context = context;
-        this.mNames = mNames;
-        this.mMarks = mMarks;
+        this.tempUsers = tempUsers;
+        // constructor
     }
 
     @NonNull
@@ -37,13 +44,18 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.textStudentMark.setText(mNames[position]);
-        holder.textStudentMark.setText(Double.toString(mMarks[position]));
+        // holder.textStudentMark.setText(mNames[position]);
+        // holder.textStudentMark.setText(Double.toString(mMarks[position]));
+        Log.d(TAG, "onBindViewHolder getName() :" + tempUsers.get(position).getName());
+        Log.d(TAG, "onBindViewHolder getPercentage: " + tempUsers.get(position).getPercentage());
+        holder.textStudentName.setText(tempUsers.get(position).getName());
+        // TODO: Calculate average mark of the student
+        holder.textStudentMark.setText(Double.toString(tempUsers.get(position).getPercentage()));
         holder.imgAvatar.setImageResource(R.drawable.student);
 
-        if (mMarks[position] <= 50) {
+        if (tempUsers.get(position).getPercentage() <= 50) {
             holder.cardView.setBackgroundColor(Color.parseColor("#ffff4444"));
-        } else if (mMarks[position] <= 80) {
+        } else if (tempUsers.get(position).getPercentage() <= 80) {
             holder.cardView.setBackgroundColor(Color.parseColor("#FEE227"));
         } else {
             holder.cardView.setBackgroundColor(Color.parseColor("#43c465"));
@@ -65,7 +77,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
 
     @Override
     public int getItemCount() {
-        return mNames.length;
+        return tempUsers.size();
     }
 
     public class StudentViewHolder extends RecyclerView.ViewHolder {

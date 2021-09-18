@@ -12,6 +12,8 @@ public class User {
     private String country;
     private int role;
     private int added_by;
+    private double totalMarkScored = 90, totalMarkAvailable = 100;
+
 
     public User(String name, String email, String user_name, String password, String country, int role, int added_by) {
         if (password.length() != 4) {
@@ -80,5 +82,25 @@ public class User {
 
     public void setAdded_by(int added_by) {
         this.added_by = added_by;
+    }
+
+    public double getTotalMarkScored() {
+        return totalMarkScored;
+    }
+
+    public void setTotalMarkScored(double totalMarkScored) {
+        this.totalMarkScored = totalMarkScored;
+    }
+
+    public double getTotalMarkAvailable() {
+        return totalMarkAvailable;
+    }
+
+    public void setTotalMarkAvailable(double totalMarkAvailable) {
+        this.totalMarkAvailable = totalMarkAvailable;
+    }
+
+    public double getPercentage() {
+        return (totalMarkScored / totalMarkAvailable) * 100;
     }
 }
