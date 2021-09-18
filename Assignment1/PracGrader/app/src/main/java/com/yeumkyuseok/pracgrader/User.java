@@ -11,8 +11,9 @@ public class User {
     private String password;
     private String country;
     private int role;
+    private int added_by;
 
-    public User(String name, String email, String user_name, String password, String country, int role) {
+    public User(String name, String email, String user_name, String password, String country, int role, int added_by) {
         if (password.length() != 4) {
             throw new IllegalArgumentException("wrong password formant");
         }
@@ -22,6 +23,7 @@ public class User {
         this.password = password;
         this.country = country;
         this.role = role;
+        this.added_by = added_by;
     }
 
     public String getName() {
@@ -70,5 +72,13 @@ public class User {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    public int getAdded_by() {
+        return added_by;
+    }
+
+    public void setAdded_by(int added_by) {
+        this.added_by = added_by;
     }
 }

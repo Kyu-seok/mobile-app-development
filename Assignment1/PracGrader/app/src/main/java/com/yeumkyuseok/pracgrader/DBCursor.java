@@ -17,7 +17,8 @@ public class DBCursor extends CursorWrapper {
         String password = getString(getColumnIndex(UserTable.Cols.PASSWORD));
         String country = getString(getColumnIndex(UserTable.Cols.COUNTRY));
         int role = getInt(getColumnIndex(UserTable.Cols.ROLE));
-        return new User(name, email, user_name, password, country, role);
+        int added_by = getInt(getColumnIndex(UserTable.Cols.ADDEDBY));
+        return new User(name, email, user_name, password, country, role, added_by);
 
     }
 }

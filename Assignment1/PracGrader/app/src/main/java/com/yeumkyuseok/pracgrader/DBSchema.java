@@ -13,6 +13,7 @@ public class DBSchema {
             public static final String PASSWORD = "password";
             public static final String COUNTRY = "country";
             public static final String ROLE = "role";
+            public static final String ADDEDBY = "added_by";
         }
     }
 
@@ -23,7 +24,7 @@ public class DBSchema {
             public static final String TITLE = "title";
             public static final String DESC = "description";
             public static final String MARK = "mark";
-            public static final String STUDENT_NAME = "student_name";
+            public static final String USERNAME = "user_name";
         }
     }
 

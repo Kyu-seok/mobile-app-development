@@ -15,6 +15,7 @@ public class DBModel {
         cv.put(UserTable.Cols.PASSWORD, user.getPassword());
         cv.put(UserTable.Cols.COUNTRY, user.getCountry());
         cv.put(UserTable.Cols.ROLE, user.getRole());
+        cv.put(UserTable.Cols.ADDEDBY, user.getAdded_by());
 
         db.insert(UserTable.NAME, null, cv);
     }

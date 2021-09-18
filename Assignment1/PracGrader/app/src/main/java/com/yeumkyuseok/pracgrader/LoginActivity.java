@@ -36,16 +36,19 @@ public class LoginActivity extends AppCompatActivity {
                 if (userList.canLogin(inputUsername, inputPassword)) {
                     Toast.makeText(LoginActivity.this, "Successfully Login", Toast.LENGTH_SHORT).show();
                     int role = userList.checkRole(inputUsername);   // if role is -1, there will be error
-                    if (role == 0) {
-                        Toast.makeText(LoginActivity.this, "role is admin", Toast.LENGTH_SHORT).show();
-                        // todo: make new activity of admin and change intent
-                        // I wonder if there will be error as there is no break after this if statement.
-                    } else if (role == 1) {
+                    if (role == 0 || role == 1) {
+                        if (role == 0) {
+                            Toast.makeText(LoginActivity.this, "Logged in as Admin", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Logged in as Instructor", Toast.LENGTH_SHORT).show();
+                        }
+                        Intent intent = new Intent(LoginActivity.this, StaffActivity.class);
+                        intent.putExtra("role", role);
+                        startActivity(intent);
 
-                        Toast.makeText(LoginActivity.this, "role is not admin", Toast.LENGTH_SHORT).show();
                     } else if (role == 2) {
-
-                        Toast.makeText(LoginActivity.this, "role is not admin", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Logged in as Instructor", Toast.LENGTH_SHORT).show();
+                        // Todo: implement student activity
                     } else {
                         throw new IllegalArgumentException("wrong value of role");
                     }

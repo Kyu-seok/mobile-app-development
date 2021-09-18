@@ -10,6 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PracGrader">
         <activity
+            android:name=".SingleStudentActivity"
+            android:exported="true"
+            android:parentActivityName=".StaffActivity"/>
+        <activity
+            android:name=".StaffActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PracGrader.NoActionBar" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="true" />
         <activity

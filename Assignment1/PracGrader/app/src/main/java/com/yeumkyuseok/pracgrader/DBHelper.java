@@ -6,8 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.yeumkyuseok.pracgrader.DBSchema.*;
 
-import androidx.annotation.Nullable;
-
 import java.io.Serializable;
 
 public class DBHelper extends SQLiteOpenHelper implements Serializable {
@@ -26,15 +24,16 @@ public class DBHelper extends SQLiteOpenHelper implements Serializable {
                 UserTable.Cols.EMAIL + " TEXT, " +
                 UserTable.Cols.USERNAME + " TEXT PRIMARY KEY, " +
                 UserTable.Cols.PASSWORD + "  TEXT, " +
-                UserTable.Cols.COUNTRY + " TEXT," +
-                UserTable.Cols.ROLE + " INTEGER" +
+                UserTable.Cols.COUNTRY + " TEXT, " +
+                UserTable.Cols.ROLE + " INTEGER, " +
+                UserTable.Cols.ADDEDBY + " INTEGER" +
                 ")");
 
         db.execSQL("create table " + PracticalTable.NAME + "(" +
                 PracticalTable.Cols.TITLE + " TEXT PRIMARY KEY, " +
                 PracticalTable.Cols.DESC + " TEXT, " +
                 PracticalTable.Cols.MARK + " REAL, " +
-                PracticalTable.Cols.STUDENT_NAME + " TEXT" +
+                PracticalTable.Cols.USERNAME + " TEXT" +
                 ")");
     }
 

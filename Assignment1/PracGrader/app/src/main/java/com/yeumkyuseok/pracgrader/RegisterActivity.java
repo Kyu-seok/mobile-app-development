@@ -60,7 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (confirmUnique() && passwordCheck()) {
-                    User admin = new User("admin", "", inputAdminUserName, password1.getText().toString(), "", 0);
+                    User admin = new User("admin", "", inputAdminUserName, password1.getText().toString(), "", 0, -1);
                     userList.add(admin);
                     Toast.makeText(RegisterActivity.this, "Successfully created Admin account", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
