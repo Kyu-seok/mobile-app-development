@@ -6,19 +6,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class SingleStudentActivity extends AppCompatActivity {
+    private static final String TAG = "SingleStudentActivity";
 
     TextView textSingleName, textSingleEmail, textSingleCountry;
     RecyclerView practicalRecyclerView;
     Button btnAddResult;
 
-    String name, email, country;
-    String practicalNames[];
-    Double markScored[], markAssigned[];
+    Data data;
+    User student;
+
+    String name, email, country, username;
+    double markAvailable;
+    List<TakenPrac> takenPracs;
 
 
 
@@ -27,21 +34,37 @@ public class SingleStudentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_student);
 
-        Data data = new Data();
-        data.load(this);
-
         textSingleName = (TextView) findViewById(R.id.textSingleName);
         textSingleEmail = (TextView) findViewById(R.id.textSingleEmail);
         textSingleCountry = (TextView) findViewById(R.id.textSingleCountry);
         practicalRecyclerView = (RecyclerView) findViewById(R.id.singlePracticalRecyclerView);
         btnAddResult = (Button) findViewById(R.id.btnAddPractical);
 
-        // temporarily inserted test values
-        practicalNames = new String[] {"CS Lab1 ", "Chem lab 4", "MATH Assigment 1"};
-        markScored = new Double[] {50.0, 60.0, 80.0};
-        markAssigned = new Double[] {100.0, 100.0, 100.0};
+        data = new Data();
+        data.load(this);
 
-        PracticalListAdapter practicalListAdapter = new PracticalListAdapter(this, practicalNames, markScored, markAssigned);
+        Intent intent = getIntent();
+        if (intent.hasExtra("username")) {
+            username = intent.getExtras().getString("username");
+        }
+        student = data.getStudent(username);
+
+        if (student == null) {
+            Log.d(TAG, "onCreate: null student value");
+        } else {
+            this.name = student.getName();
+            this.email = student.getEmail();
+            this.country = student.getCountry();
+        }
+
+        takenPracs = data.getTakenPractical(username);
+
+        // temporarily inserted test values
+        textSingleName.setText(this.name);
+        textSingleEmail.setText("Email : " + this.email);
+        textSingleCountry.setText("Country : " + this.country);
+
+        PracticalListAdapter practicalListAdapter = new PracticalListAdapter(this, takenPracs, username);
         practicalRecyclerView.setAdapter(practicalListAdapter);
         practicalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -50,10 +73,16 @@ public class SingleStudentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SingleStudentActivity.this, CRUDResultActivity.class);
                 intent.putExtra("mode", 0);
+                intent.putExtra("username", username);
                 startActivity(intent);
             }
         });
 
+
+    }
+
+    @Override
+    public void onBackPressed() {
 
     }
 }

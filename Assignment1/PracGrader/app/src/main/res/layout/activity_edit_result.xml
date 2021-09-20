@@ -59,7 +59,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
     <Button
-        android:id="@+id/btnCheckTitle"
+        android:id="@+id/btnCheckEditTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"

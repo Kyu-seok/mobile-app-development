@@ -11,8 +11,7 @@
         android:theme="@style/Theme.PracGrader">
         <activity
             android:name=".CRUDResultActivity"
-            android:exported="true"
-            android:parentActivityName=".SingleStudentActivity"/>
+            android:exported="true" />
         <activity
             android:name=".SingleStudentActivity"
             android:exported="true"

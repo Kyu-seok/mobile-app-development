@@ -38,8 +38,7 @@ public class DBHelper extends SQLiteOpenHelper implements Serializable {
         db.execSQL("create table " + TakenPracTable.NAME + "(" +
                 TakenPracTable.Cols.USERNAME + " TEXT, " +
                 TakenPracTable.Cols.PRAC_TITLE + " TEXT, " +
-                TakenPracTable.Cols.MARK_SCORED + " REAL, " +
-                "PRIMARY KEY (" + TakenPracTable.Cols.USERNAME + " ," + TakenPracTable.Cols.PRAC_TITLE + ")" +
+                TakenPracTable.Cols.MARK_SCORED + " REAL" +
                 ")");
     }
 

@@ -3,6 +3,7 @@ package com.yeumkyuseok.pracgrader;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class StaffActivity extends AppCompatActivity {
+    private static final String TAG = "StaffActivity";
 
     Toolbar toolbar;
     Button btnStuList, btnInstrList, btnPracList, btnAddStudent, btnSearch;
@@ -26,6 +28,7 @@ public class StaffActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate: ONCREATE!!!!");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff);
 
@@ -40,12 +43,9 @@ public class StaffActivity extends AppCompatActivity {
 
         data = new Data();
         data.load(this);
-        data.generateData(this);    // generate data
+        //data.generateData(this);    // generate data
+        //data.load(this);
         data.getStudentList(role);
-
-        // names = new String[] {"Jane", "Kim", "john", "sam", "ken", "rafael", "santos", "kenny", "adam", "bobby"};
-        // marks = new double[] {10.0, 12.3, 46, 90, 70, 80, 60, 50, 30, 100};
-
 
         StudentListAdapter studentListAdapter = new StudentListAdapter(this, data.tempUsers);
         studentRecyclerView.setAdapter(studentListAdapter);
@@ -53,5 +53,16 @@ public class StaffActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        Log.d(TAG, "onResume: RESUME AGAIN!!!");
+        super.onResume();
+        data = new Data();
+        data.load(this);
+        data.getStudentList(role);
 
+        StudentListAdapter studentListAdapter = new StudentListAdapter(this, data.tempUsers);
+        studentRecyclerView.setAdapter(studentListAdapter);
+        studentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
 }

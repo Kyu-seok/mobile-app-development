@@ -13,17 +13,19 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 public class PracticalListAdapter extends RecyclerView.Adapter<PracticalListAdapter.PracticalViewHolder> {
 
-    String names[];
-    Double markScored[], markAssigned[];
+    List<TakenPrac> takenPracs;
     Context context;
+    Data data = new Data();
+    String username;
 
-    public PracticalListAdapter(Context context, String[] names, Double[] markScored, Double[] markAssigned) {
-        this.names = names;
-        this.markScored = markScored;
-        this.markAssigned = markAssigned;
+    public PracticalListAdapter(Context context, List<TakenPrac> takenPracs, String username) {
+        this.takenPracs = takenPracs;
         this.context = context;
+        this.username = username;
     }
 
     @NonNull
@@ -31,23 +33,25 @@ public class PracticalListAdapter extends RecyclerView.Adapter<PracticalListAdap
     public PracticalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.practical_row, parent, false);
+        data.load(context);
         return new PracticalViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PracticalViewHolder holder, int position) {
 
-        holder.textPracticalName.setText(names[position]);
-        holder.textMarkScored.setText(Double.toString(markScored[position]));
-        holder.textMarkAssigned.setText(Double.toString(markAssigned[position]));
+        TakenPrac prac = takenPracs.get(position);
+        holder.textPracticalName.setText(prac.getPracTitle());
+        holder.textMarkScored.setText(Double.toString(prac.getMarkScored()));
+        holder.textMarkAssigned.setText(Double.toString(data.getPracMarkAvailable(prac.pracTitle)));
 
 
         holder.practicalLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, CRUDResultActivity.class);
-                // TODO : pass name, email, username, country to AddResultActivity.class using putExtra()
                 intent.putExtra("mode", 1); //edit mode
+                intent.putExtra("username", username);
                 // intent.putExtra("mName", mName[position]);
                 // intent.putExtra("mDesc", mDesc[position]);
                 // intent.putExtra("imgAvatar", R.mipmap.ic_launcher);
@@ -58,7 +62,7 @@ public class PracticalListAdapter extends RecyclerView.Adapter<PracticalListAdap
 
     @Override
     public int getItemCount() {
-        return names.length;
+        return takenPracs.size();
     }
 
     public class PracticalViewHolder extends RecyclerView.ViewHolder {

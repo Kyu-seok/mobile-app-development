@@ -41,4 +41,12 @@ public class DBModel {
 
     }
 
+    public void addTakenPrac(TakenPrac takenPrac) {
+        ContentValues cv = new ContentValues();
+        cv.put(TakenPracTable.Cols.USERNAME, takenPrac.getUsername());
+        cv.put(TakenPracTable.Cols.PRAC_TITLE, takenPrac.getPracTitle());
+        cv.put(TakenPracTable.Cols.MARK_SCORED, takenPrac.getMarkScored());
+        db.insert(TakenPracTable.NAME, null, cv);
+    }
+
 }

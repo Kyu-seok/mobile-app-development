@@ -37,6 +37,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
     @NonNull
     @Override
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.d(TAG, "onCreateViewHolder: enters!");
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.student_row, parent, false);
         return new StudentViewHolder(view);
@@ -44,16 +45,19 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        // holder.textStudentMark.setText(mNames[position]);
-        // holder.textStudentMark.setText(Double.toString(mMarks[position]));
-        Log.d(TAG, "onBindViewHolder getName() :" + tempUsers.get(position).getName());
-        Log.d(TAG, "onBindViewHolder getPercentage: " + tempUsers.get(position).getPercentage());
         holder.textStudentName.setText(tempUsers.get(position).getName());
         // TODO: Calculate average mark of the student
-        holder.textStudentMark.setText(Double.toString(tempUsers.get(position).getPercentage()));
+        holder.textStudentMark.setText(Double.toString(tempUsers.get(position).getPercentage())+"%");
         holder.imgAvatar.setImageResource(R.drawable.student);
+        Log.d(TAG, "onBindViewHolder: username: " + tempUsers.get(position).getUser_name());
+        Log.d(TAG, "onBindViewHolder: total: " + tempUsers.get(position).getTotalMarkScored());
+        Log.d(TAG, "onBindViewHolder: scored: " + tempUsers.get(position).getTotalMarkScored());
+        Log.d(TAG, "onBindViewHolder: percentage: " + tempUsers.get(position).getPercentage());
 
-        if (tempUsers.get(position).getPercentage() <= 50) {
+        if (tempUsers.get(position).getTotalMarkAvailable() == 0) {
+            holder.cardView.setBackgroundColor(Color.parseColor("#FFF5EE"));
+            holder.textStudentMark.setText("No Practicals Taken");
+        } else if (tempUsers.get(position).getPercentage() <= 50) {
             holder.cardView.setBackgroundColor(Color.parseColor("#ffff4444"));
         } else if (tempUsers.get(position).getPercentage() <= 80) {
             holder.cardView.setBackgroundColor(Color.parseColor("#FEE227"));
@@ -65,11 +69,8 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, SingleStudentActivity.class);
-
-                // TODO : pass the student ID value to SingleStudentActivity.class using putExtra()
-                // intent.putExtra("mName", mName[position]);
-                // intent.putExtra("mDesc", mDesc[position]);
-                // intent.putExtra("imgAvatar", R.mipmap.ic_launcher);
+                String username = tempUsers.get(position).getUser_name();
+                intent.putExtra("username", username);
                 context.startActivity(intent);
             }
         });
@@ -82,7 +83,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
 
     public class StudentViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textStudentName, textStudentMark;
+        TextView textStudentName, textStudentMark, textUsername;
         ImageView imgAvatar;
         CardView cardView;
         ConstraintLayout studentLayout;    // mainLayout is used for clickListener
@@ -91,6 +92,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
             super(itemView);
             textStudentName = itemView.findViewById(R.id.textStudentName);
             textStudentMark = itemView.findViewById(R.id.textStudentMark);
+            textUsername = itemView.findViewById(R.id.textUserName);
             imgAvatar = itemView.findViewById(R.id.imgAvatar);
             cardView = itemView.findViewById(R.id.cardViewStudent);
             studentLayout = itemView.findViewById(R.id.studentLayout);

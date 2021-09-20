@@ -2,12 +2,14 @@ package com.yeumkyuseok.pracgrader;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Data implements Serializable {
+    private static final String TAG = "Data";
 
     public List<User> users = new ArrayList<>();
     public List<User> tempUsers = new ArrayList<>();
@@ -44,6 +46,29 @@ public class Data implements Serializable {
             dbCursor = new DBCursor(cursor);
             takenPracs.add(dbCursor.getTakenPrac());
         }
+
+        getStudentList(1);
+
+    }
+
+    public boolean hasUser(String username){
+        boolean hasUser = false;
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUser_name().equals(username)) {
+                hasUser = true;
+            }
+        }
+        return hasUser;
+    }
+
+    public User getStudent(String username) {
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUser_name().equals(username)) {
+                return users.get(i);
+            }
+        }
+
+        return null;
     }
 
     public void getStudentList(int role) {
@@ -54,16 +79,41 @@ public class Data implements Serializable {
         }
         DBCursor dbCursor;
 
+        tempUsers.clear();
+
         while (cursor.moveToNext()) {
             dbCursor = new DBCursor(cursor);
             tempUsers.add(dbCursor.getUser());
         }
+
+        for (int i = 0; i < tempUsers.size(); i++) {
+            calculateMarksScored(tempUsers.get(i));
+            calculateTotalMarksAvailable(tempUsers.get(i));
+        }
+    }
+
+    public List<TakenPrac> getTakenPractical(String username) {
+
+        List<TakenPrac> takenPracticals = new ArrayList<>();
+
+        for (int i = 0; i < takenPracs.size(); i++) {
+            if (takenPracs.get(i).username.equals(username)) {
+                takenPracticals.add(takenPracs.get(i));
+            }
+        }
+
+        return takenPracticals;
     }
 
 
     public void add(User user) {
         users.add(user);
         dbModel.addUser(user);
+    }
+
+    public void addTakenPrac(TakenPrac takenPrac) {
+        takenPracs.add(takenPrac);
+        dbModel.addTakenPrac(takenPrac);
     }
 
     public boolean hasAdmin() {
@@ -73,8 +123,27 @@ public class Data implements Serializable {
                 adminExists = true;
             }
         }
-
         return adminExists;
+    }
+
+    public boolean hasPractical(String pracTitle) {
+        boolean pracExists = false;
+        for (int i = 0; i < practicals.size(); i++) {
+            if (pracTitle.equals(practicals.get(i).getTitle())) {
+                pracExists = true;
+            }
+        }
+        return pracExists;
+    }
+
+    public boolean hasStudent(String username) {
+        boolean hasStudent = false;
+        for (int i = 0; i < tempUsers.size(); i++) {
+            if (username.equals(tempUsers.get(i).getUser_name())) {
+                hasStudent = true;
+            }
+        }
+        return hasStudent;
     }
 
     public boolean checkUnique(String userName) {
@@ -133,13 +202,69 @@ public class Data implements Serializable {
             dbCursor = new DBCursor(cursor);
             practicals.add(dbCursor.getPractical());
         }
-
-
     }
 
-    // todo: implement edit
-    // todo: implement delete
+    public double getPracMarkAvailable(String pracTitle) {
+        double mark = 0;
+        for (int i = 0; i < practicals.size(); i++) {
+            if (practicals.get(i).getTitle().equals(pracTitle)) {
+                mark = practicals.get(i).getMark();
+            }
+        }
+        return mark;
+    }
 
+    public int getNumberOfStudents() {
+        int count = 0;
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getRole() == 2) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public void calculateTotalMarksAvailable(User user) {
+        String username = user.getUser_name();
+        double totalMark = 0;
+        List<String> pracTitleList = new ArrayList<>();
+        List<Practical> practicalsTaken = new ArrayList<>();
+
+        for (int i = 0; i < takenPracs.size(); i++) {
+            if (takenPracs.get(i).getUsername().equals(username)) {
+                String pracTitle = takenPracs.get(i).getPracTitle();
+                pracTitleList.add(pracTitle);
+            }
+        }
+
+        for (int i = 0; i < pracTitleList.size(); i++) {
+            for (int j = 0; j < practicals.size(); j++) {
+                if (pracTitleList.get(i).equals(practicals.get(j).getTitle())) {
+                    totalMark += practicals.get(j).getMark();
+                }
+            }
+        }
+        user.setTotalMarkAvailable(totalMark);
+    }
+
+    public void calculateMarksScored(User user) {
+        String username = user.getUser_name();
+        double markScored = 0;
+        for (int i = 0; i < takenPracs.size(); i++) {
+            if (username.equals(takenPracs.get(i).getUsername())) {
+                markScored += takenPracs.get(i).getMarkScored();
+            }
+        }
+        Log.d(TAG, "calculateMarksScored: username: " + username + " markScored : " + markScored);
+        user.setTotalMarkScored(markScored);
+    }
+
+    public void setStudentMark(List<User> list) {
+        for (int i = 0; i < list.size(); i++) {
+            calculateTotalMarksAvailable(list.get(i));
+            calculateMarksScored(list.get(i));
+        }
+    }
 
 
 

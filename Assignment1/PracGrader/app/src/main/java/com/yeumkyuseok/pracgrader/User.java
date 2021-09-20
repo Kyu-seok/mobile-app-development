@@ -12,7 +12,7 @@ public class User {
     private String country;
     private int role;
     private int added_by;
-    private double totalMarkScored = 90, totalMarkAvailable = 100;
+    private double totalMarkScored , totalMarkAvailable = 0;
 
 
     public User(String name, String email, String user_name, String password, String country, int role, int added_by) {
