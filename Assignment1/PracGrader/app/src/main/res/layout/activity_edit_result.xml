@@ -41,12 +41,12 @@
         android:id="@+id/editTextMarkScored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Mark Scored"
         android:inputType="textPersonName|numberDecimal"
-        android:text="90"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintStart_toStartOf="@+id/textCurrMark"
+        app:layout_constraintTop_toBottomOf="@+id/textCurrMark" />
 
     <Button
         android:id="@+id/btnAddResult"
@@ -57,26 +57,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
-
-    <Button
-        android:id="@+id/btnCheckEditTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:text="Check Title"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextTextPersonName"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName" />
-
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Title Example"
-        app:layout_constraintStart_toStartOf="@+id/textEditResultCountry"
-        app:layout_constraintTop_toBottomOf="@+id/textEditResultCountry" />
 
     <Button
         android:id="@+id/btnDeleteResult"
@@ -94,5 +74,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/textCurrMark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="@+id/textEditResultCountry"
+        app:layout_constraintTop_toBottomOf="@+id/textEditResultCountry"
+        tools:text="Current Mark : 30 / 50" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

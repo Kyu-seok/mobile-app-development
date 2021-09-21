@@ -49,4 +49,16 @@ public class DBModel {
         db.insert(TakenPracTable.NAME, null, cv);
     }
 
+    public void editTakenPrac(String username, String pracTitle, double markScored) {
+        ContentValues cv = new ContentValues();
+
+        cv.put(TakenPracTable.Cols.USERNAME, username);
+        cv.put(TakenPracTable.Cols.PRAC_TITLE, pracTitle);
+        cv.put(TakenPracTable.Cols.MARK_SCORED, markScored);
+
+        String[] whereValue =  {username, pracTitle};
+
+        db.update(TakenPracTable.NAME, cv, TakenPracTable.Cols.USERNAME + " = ? AND " + TakenPracTable.Cols.PRAC_TITLE + " = ?" , whereValue);
+    }
+
 }

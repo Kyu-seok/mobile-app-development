@@ -2,6 +2,7 @@ package com.yeumkyuseok.pracgrader;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -16,11 +17,10 @@ public class StaffActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     Button btnStuList, btnInstrList, btnPracList, btnAddStudent, btnSearch;
-    TextView textSearch;
+    TextView textSearch, textLoginAs, textStatus;
     RecyclerView studentRecyclerView;
 
-    String names[];
-    double marks[];
+    static String staff_username;
     Data data;
     int role = 0;
 
@@ -32,6 +32,11 @@ public class StaffActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff);
 
+        Intent intent = getIntent();
+        if (intent.hasExtra("username")) {
+            staff_username = intent.getExtras().get("username").toString();
+        }
+
         toolbar = (Toolbar) findViewById(R.id.staffActivityToolbar);
         btnStuList = (Button) findViewById(R.id.btnStudentList);
         btnInstrList = (Button) findViewById(R.id.btnInstructorList);
@@ -39,30 +44,24 @@ public class StaffActivity extends AppCompatActivity {
         btnAddStudent = (Button) findViewById(R.id.btnAddStudent);
         btnSearch = (Button) findViewById(R.id.btnSearch);
         textSearch = (TextView) findViewById(R.id.textSearch);
+        textLoginAs = (TextView) findViewById(R.id.textLoginAs);
+        textStatus = (TextView) findViewById(R.id.textStatus);
         studentRecyclerView = (RecyclerView) findViewById(R.id.studentRecyclerView);
+
+        textLoginAs.setText("Logged in as : " + staff_username);
+        textStatus.setText("Status : admin");
 
         data = new Data();
         data.load(this);
         //data.generateData(this);    // generate data
-        //data.load(this);
         data.getStudentList(role);
 
         StudentListAdapter studentListAdapter = new StudentListAdapter(this, data.tempUsers);
         studentRecyclerView.setAdapter(studentListAdapter);
         studentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
+
     }
 
-    @Override
-    protected void onResume() {
-        Log.d(TAG, "onResume: RESUME AGAIN!!!");
-        super.onResume();
-        data = new Data();
-        data.load(this);
-        data.getStudentList(role);
-
-        StudentListAdapter studentListAdapter = new StudentListAdapter(this, data.tempUsers);
-        studentRecyclerView.setAdapter(studentListAdapter);
-        studentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
 }

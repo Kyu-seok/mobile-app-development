@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         Intent intent = new Intent(LoginActivity.this, StaffActivity.class);
                         intent.putExtra("role", role);
+                        intent.putExtra("username", inputUsername);
                         startActivity(intent);
 
                     } else if (role == 2) {

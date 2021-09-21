@@ -116,6 +116,11 @@ public class Data implements Serializable {
         dbModel.addTakenPrac(takenPrac);
     }
 
+    public void editTakePrac(Context context,String username, String pracTitle, double markScored) {
+        dbModel.editTakenPrac(username, pracTitle, markScored);
+        load(context);
+    }
+
     public boolean hasAdmin() {
         boolean adminExists = false;
         for(int i = 0; i < users.size(); i++ ) {

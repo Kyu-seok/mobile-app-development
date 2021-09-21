@@ -52,6 +52,8 @@ public class PracticalListAdapter extends RecyclerView.Adapter<PracticalListAdap
                 Intent intent = new Intent(context, CRUDResultActivity.class);
                 intent.putExtra("mode", 1); //edit mode
                 intent.putExtra("username", username);
+                intent.putExtra("pracTitle", prac.getPracTitle());
+                intent.putExtra("currMark", prac.getMarkScored());
                 // intent.putExtra("mName", mName[position]);
                 // intent.putExtra("mDesc", mDesc[position]);
                 // intent.putExtra("imgAvatar", R.mipmap.ic_launcher);

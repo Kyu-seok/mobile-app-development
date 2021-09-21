@@ -7,7 +7,7 @@
     tools:context=".CRUDResultActivity">
 
     <TextView
-        android:id="@+id/textEditResultUsername"
+        android:id="@+id/textAddResultUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -19,23 +19,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textEditResultEmail"
+        android:id="@+id/textAddResultEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="64dp"
         android:text="Email : example@example.com"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textEditResultUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/textAddResultUsername" />
 
     <TextView
-        android:id="@+id/textEditResultCountry"
+        android:id="@+id/textAddResultCountry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Country : Example"
-        app:layout_constraintStart_toStartOf="@+id/textEditResultEmail"
-        app:layout_constraintTop_toBottomOf="@+id/textEditResultEmail" />
+        app:layout_constraintStart_toStartOf="@+id/textAddResultEmail"
+        app:layout_constraintTop_toBottomOf="@+id/textAddResultEmail" />
 
     <EditText
         android:id="@+id/editTextPracticalTitle"
@@ -45,8 +45,8 @@
         android:ems="10"
         android:hint="Practical Title"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/textEditResultCountry"
-        app:layout_constraintTop_toBottomOf="@+id/textEditResultCountry" />
+        app:layout_constraintStart_toStartOf="@+id/textAddResultCountry"
+        app:layout_constraintTop_toBottomOf="@+id/textAddResultCountry" />
 
     <EditText
         android:id="@+id/editTextMarkScoredAdd"
