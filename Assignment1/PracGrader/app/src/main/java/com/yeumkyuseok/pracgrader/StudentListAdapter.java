@@ -24,14 +24,11 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
     private static final String TAG = "StudentListAdapter";
     List<User> tempUsers;
 
-    // String mNames[];
-    // double mMarks[];
     Context context;
 
     public StudentListAdapter(Context context, List<User> tempUsers) {
         this.context = context;
         this.tempUsers = tempUsers;
-        // constructor
     }
 
     @NonNull
@@ -46,13 +43,8 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.textStudentName.setText(tempUsers.get(position).getName());
-        // TODO: Calculate average mark of the student
         holder.textStudentMark.setText(Double.toString(tempUsers.get(position).getPercentage())+"%");
         holder.imgAvatar.setImageResource(R.drawable.student);
-        Log.d(TAG, "onBindViewHolder: username: " + tempUsers.get(position).getUser_name());
-        Log.d(TAG, "onBindViewHolder: total: " + tempUsers.get(position).getTotalMarkScored());
-        Log.d(TAG, "onBindViewHolder: scored: " + tempUsers.get(position).getTotalMarkScored());
-        Log.d(TAG, "onBindViewHolder: percentage: " + tempUsers.get(position).getPercentage());
 
         if (tempUsers.get(position).getTotalMarkAvailable() == 0) {
             holder.cardView.setBackgroundColor(Color.parseColor("#FFF5EE"));

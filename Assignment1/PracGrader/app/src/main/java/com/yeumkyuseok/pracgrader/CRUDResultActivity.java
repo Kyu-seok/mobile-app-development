@@ -158,6 +158,16 @@ public class CRUDResultActivity extends AppCompatActivity {
                 }
             });
 
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    data.deleteTakenPrac(CRUDResultActivity.this, username, loadPracTitle);
+                    Toast.makeText(CRUDResultActivity.this, "deleted Taken Practical", Toast.LENGTH_SHORT).show();
+                    Intent intent1 = new Intent(CRUDResultActivity.this, SingleStudentActivity.class);
+                    intent1.putExtra("username", username);
+                    startActivity(intent1);
+                }
+            });
 
         }
 

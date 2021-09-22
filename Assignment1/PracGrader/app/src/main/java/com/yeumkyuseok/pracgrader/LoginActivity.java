@@ -48,8 +48,9 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
 
                     } else if (role == 2) {
-                        Toast.makeText(LoginActivity.this, "Logged in as Instructor", Toast.LENGTH_SHORT).show();
-                        // Todo: implement student activity
+                        Intent intent = new Intent(LoginActivity.this, StudentActivity.class);
+                        intent.putExtra("username", inputUsername);
+                        startActivity(intent);
                     } else {
                         throw new IllegalArgumentException("wrong value of role");
                     }

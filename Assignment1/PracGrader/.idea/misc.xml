@@ -5,15 +5,24 @@
       <map>
         <entry key="../../../../../../layout/custom_preview.xml" value="0.37083333333333335" />
         <entry key="app/src/main/res/layout/activity_add_result.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_add_student.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_crudinstr.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_crudprac.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_edit_result.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1656534954407295" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_single_student.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/activity_single_instr.xml" value="0.24320652173913043" />
+        <entry key="app/src/main/res/layout/activity_single_prac.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_single_student.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_staff.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_student.xml" value="0.22" />
         <entry key="app/src/main/res/layout/content_login.xml" value="0.17299898682877407" />
+        <entry key="app/src/main/res/layout/insructor_row.xml" value="0.33" />
         <entry key="app/src/main/res/layout/menu_admin.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/practical_row.xml" value="0.24320652173913043" />
         <entry key="app/src/main/res/layout/practival_row.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/staff_prac_row.xml" value="0.33" />
         <entry key="app/src/main/res/layout/student_row.xml" value="0.33" />
         <entry key="app/src/main/res/menu/menu_admin.xml" value="0.29444444444444445" />
       </map>

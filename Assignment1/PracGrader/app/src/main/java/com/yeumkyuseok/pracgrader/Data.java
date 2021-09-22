@@ -67,15 +67,23 @@ public class Data implements Serializable {
                 return users.get(i);
             }
         }
+        return null;
+    }
 
+    public Practical getPractical(String title) {
+        for (int i = 0; i < practicals.size(); i++) {
+            if (practicals.get(i).getTitle().equals(title)) {
+                return practicals.get(i);
+            }
+        }
         return null;
     }
 
     public void getStudentList(int role) {
         if (role == 0) {
-            cursor = dbModel.db.rawQuery("SELECT * FROM users WHERE role > 0 ORDER BY name ASC", null);
+            cursor = dbModel.db.rawQuery("SELECT * FROM users WHERE role = 2 ORDER BY name ASC", null);
         } else {
-            cursor = dbModel.db.rawQuery("SELECT * FROM users WHERE role > 0 AND added_by = 1 ORDER BY name ASC", null);
+            cursor = dbModel.db.rawQuery("SELECT * FROM users WHERE role = 2 AND added_by = 1 ORDER BY name ASC", null);
         }
         DBCursor dbCursor;
 
@@ -89,6 +97,37 @@ public class Data implements Serializable {
         for (int i = 0; i < tempUsers.size(); i++) {
             calculateMarksScored(tempUsers.get(i));
             calculateTotalMarksAvailable(tempUsers.get(i));
+        }
+    }
+
+    public void getSearchedList(int role, String keyword) {
+        if (role == 0) {
+            cursor = dbModel.db.rawQuery("SELECT * FROM users WHERE role = 2 AND name LIKE \'%" + keyword + "%\' ORDER BY name ASC", null);
+        } else {
+            cursor = dbModel.db.rawQuery("SELECT * FROM users WHERE (role = 2 AND added_by = 1 AND name LIKE \'%" + keyword + "%\') ORDER BY name ASC", null);
+        }
+        DBCursor dbCursor;
+        tempUsers.clear();
+
+        while (cursor.moveToNext()) {
+            dbCursor = new DBCursor(cursor);
+            tempUsers.add(dbCursor.getUser());
+        }
+
+        for (int i = 0; i < tempUsers.size(); i++) {
+            calculateMarksScored(tempUsers.get(i));
+            calculateTotalMarksAvailable(tempUsers.get(i));
+        }
+    }
+
+    public void getInstructors() {
+        cursor = dbModel.db.rawQuery("SELECT * FROM users WHERE role = 1 ORDER BY name ASC", null);
+        DBCursor dbCursor;
+        tempUsers.clear();
+
+        while (cursor.moveToNext()) {
+            dbCursor = new DBCursor(cursor);
+            tempUsers.add(dbCursor.getUser());
         }
     }
 
@@ -111,13 +150,43 @@ public class Data implements Serializable {
         dbModel.addUser(user);
     }
 
+    public void deleteUser(User student) {
+        users.remove(student);
+        dbModel.deleteUser(student);
+    }
+
+    public void deletePrac(Practical practical) {
+        users.remove(practical);
+        dbModel.deletePractical(practical);
+    }
+
     public void addTakenPrac(TakenPrac takenPrac) {
         takenPracs.add(takenPrac);
         dbModel.addTakenPrac(takenPrac);
     }
 
+    public void addPrac(Practical practical) {
+        practicals.add(practical);
+        dbModel.addPractical(practical);
+    }
+
     public void editTakePrac(Context context,String username, String pracTitle, double markScored) {
         dbModel.editTakenPrac(username, pracTitle, markScored);
+        load(context);
+    }
+
+    public void editUser(Context context, String username, User user) {
+        dbModel.editUser(username, user);
+        load(context);
+    }
+
+    public void editPrac(Context context, String title, Practical practical) {
+        dbModel.editPractical(title, practical);
+        load(context);
+    }
+
+    public void deleteTakenPrac(Context context, String username, String pracTitle) {
+        dbModel.deleteTakenPrac(username, pracTitle);
         load(context);
     }
 
@@ -149,6 +218,28 @@ public class Data implements Serializable {
             }
         }
         return hasStudent;
+    }
+
+    public boolean checkUniqueUsername(Context context, String username) {
+        load(context);
+        boolean isUnique = true;
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getUser_name().equals(username)) {
+                isUnique = false;
+            }
+        }
+        return isUnique;
+    }
+
+    public boolean checkUniquePrac(Context context, String title) {
+        load(context);
+        boolean isUnique = true;
+        for (int i = 0; i < practicals.size(); i++) {
+            if (practicals.get(i).getTitle().equals(title)) {
+                isUnique = false;
+            }
+        }
+        return isUnique;
     }
 
     public boolean checkUnique(String userName) {
