@@ -1,0 +1,85 @@
+package com.yeumkyuseok.mathtest;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
+public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.StudentViewHolder> {
+
+    private static final String TAG = "StudentListAdapter";
+    List<Student> tempStudents;
+
+    Context context;
+
+    public StudentListAdapter(Context context, List<Student> tempStudents) {
+        this.context = context;
+        this.tempStudents = tempStudents;
+    }
+
+    @NonNull
+    @Override
+    public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.d(TAG, "onCreateViewHolder: enters!");
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.student_row, parent, false);
+        return new StudentViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull StudentViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        holder.textStudentName.setText(tempStudents.get(position).getFullName());
+        // holder.textStudentMark.setText(Double.toString(tempStudents.get(position).get())+"%");
+        holder.imgAvatar.setImageResource(R.drawable.student);
+
+        /*
+        holder.studentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SingleStudentActivity.class);
+                String username = tempUsers.get(position).getUser_name();
+                intent.putExtra("username", username);
+                context.startActivity(intent);
+            }
+        });
+
+         */
+    }
+
+    @Override
+    public int getItemCount() {
+        return tempStudents.size();
+    }
+
+    public class StudentViewHolder extends RecyclerView.ViewHolder {
+
+        TextView textStudentName, textStudentMark, textUsername;
+        ImageView imgAvatar;
+        CardView cardView;
+        ConstraintLayout studentLayout;    // mainLayout is used for clickListener
+
+        public StudentViewHolder(@NonNull View itemView) {
+            super(itemView);
+            textStudentName = itemView.findViewById(R.id.textStudentName);
+            textStudentMark = itemView.findViewById(R.id.textStudentMark);
+            // textUsername = itemView.findViewById(R.id.textUserName);
+            imgAvatar = itemView.findViewById(R.id.imgAvatar);
+            cardView = itemView.findViewById(R.id.cardViewStudent);
+            studentLayout = itemView.findViewById(R.id.studentLayout);
+
+        }
+    }
+}
