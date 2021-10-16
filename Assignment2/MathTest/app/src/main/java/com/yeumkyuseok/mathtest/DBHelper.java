@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.yeumkyuseok.assignment2.DBSchema.*;
+import com.yeumkyuseok.mathtest.DBSchema.*;
 
 import java.io.Serializable;
 
@@ -20,27 +20,25 @@ public class DBHelper extends SQLiteOpenHelper implements Serializable {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + UserTable.NAME + "(" +
-                UserTable.Cols.NAME + " TEXT, " +
-                UserTable.Cols.EMAIL + " TEXT, " +
-                UserTable.Cols.USERNAME + " TEXT PRIMARY KEY, " +
-                UserTable.Cols.PASSWORD + "  TEXT, " +
-                UserTable.Cols.COUNTRY + " TEXT, " +
-                UserTable.Cols.ROLE + " INTEGER, " +
-                UserTable.Cols.ADDEDBY + " INTEGER" +
-                ")");
+        db.execSQL(
+                "CREATE TABLE student (\n" +
+                        "    first_name VARCHAR(30),\n" +
+                        "    last_name VARCHAR(30),\n" +
+                        "    phone_num VARCHAR(200),\n" +
+                        "    email VARCHAR(200),\n" +
+                        "    photo VARCHAR(100)\n" +
+                        ");"
+        );
 
-        db.execSQL("create table " + PracticalTable.NAME + "(" +
-                PracticalTable.Cols.TITLE + " TEXT PRIMARY KEY, " +
-                PracticalTable.Cols.DESC + " TEXT, " +
-                PracticalTable.Cols.MARK + " REAL " +
-                ")");
-
-        db.execSQL("create table " + TakenPracTable.NAME + "(" +
-                TakenPracTable.Cols.USERNAME + " TEXT, " +
-                TakenPracTable.Cols.PRAC_TITLE + " TEXT, " +
-                TakenPracTable.Cols.MARK_SCORED + " REAL" +
-                ")");
+        db.execSQL(
+                "CREATE TABLE result (\n" +
+                        "    first_name VARCHAR(30),\n" +
+                        "    last_name VARCHAR(30),\n" +
+                        "    score INTEGER,\n" +
+                        "    start_time VARCHAR(30),\n" +
+                        "    time_taken INTEGER\n" +
+                        ");"
+        );
     }
 
     @Override

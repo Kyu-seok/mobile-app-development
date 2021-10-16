@@ -11,10 +11,8 @@ import java.util.List;
 public class Data implements Serializable {
     private static final String TAG = "Data";
 
-    public List<User> users = new ArrayList<>();
-    public List<User> tempUsers = new ArrayList<>();
-    public List<Practical> practicals = new ArrayList<>();
-    public List<TakenPrac> takenPracs = new ArrayList<>();
+    public List<Student> students = new ArrayList<>();
+    public List<Result> results = new ArrayList<>();
 
     DBModel dbModel = new DBModel();
     Cursor cursor;
@@ -23,29 +21,24 @@ public class Data implements Serializable {
     public Data() {}
 
     public void load(Context context) {
-        com.yeumkyuseok.assignment2.DBHelper dbHelper = new com.yeumkyuseok.assignment2.DBHelper(context);
+        DBHelper dbHelper = new DBHelper(context);
         dbModel.db = dbHelper.getReadableDatabase();
-        com.yeumkyuseok.assignment2.DBCursor dbCursor;
+        DBCursor dbCursor;
         // load values from users table
-        cursor = dbModel.db.rawQuery("SELECT * FROM users", null);
+        cursor = dbModel.db.rawQuery("SELECT * FROM student", null);
         while (cursor.moveToNext()) {
-            dbCursor = new com.yeumkyuseok.assignment2.DBCursor(cursor);
-            users.add(dbCursor.getUser());
+            dbCursor = new DBCursor(cursor);
+            students.add(dbCursor.getStudent());
         }
 
         // load from practicals table
-        cursor = dbModel.db.rawQuery("SELECT * FROM practicals", null);
+        cursor = dbModel.db.rawQuery("SELECT * FROM result", null);
         while (cursor.moveToNext()) {
-            dbCursor = new com.yeumkyuseok.assignment2.DBCursor(cursor);
-            practicals.add(dbCursor.getPractical());
+            dbCursor = new DBCursor(cursor);
+            results.add(dbCursor.getResult());
         }
 
-        // load from takenPrac table
-        cursor = dbModel.db.rawQuery("SELECT * FROM takenPrac", null);
-        while (cursor.moveToNext()) {
-            dbCursor = new com.yeumkyuseok.assignment2.DBCursor(cursor);
-            takenPracs.add(dbCursor.getTakenPrac());
-        }
+
 
         getStudentList(1);
 

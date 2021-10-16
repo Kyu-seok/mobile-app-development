@@ -2,12 +2,36 @@ package com.yeumkyuseok.mathtest;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.yeumkyuseok.pracgrader.DBSchema.*;
+import android.util.Log;
 
 public class DBModel {
     SQLiteDatabase db;
+    private static final String TAG = "DBModel";
 
+    public void addStudent(Student student) {
+        Log.d(TAG, "addStudent: add function here");
+    }
+
+    public void editStudent(Student student) {
+        Log.d(TAG, "editStudent: add function here");
+    }
+
+    public void deleteStudent(Student student) {
+        Log.d(TAG, "deleteStudent: add function here");
+    }
+
+    public void addResult(Student student, int score, String startTime, int timeTaken) {
+        Log.d(TAG, "addResult: add function here");
+    }
+
+    public void editResult(Student student, int score, String startTime, int timeTaken) {
+        Log.d(TAG, "editResult: add function here");
+    }
+
+    public void deleteResult(Student student) {
+        Log.d(TAG, "deleteResult: add function here");
+    }
+    /*
     public void addUser(User user){
         ContentValues cv = new ContentValues();
         cv.put(UserTable.Cols.NAME, user.getName());
@@ -92,5 +116,6 @@ public class DBModel {
         String[] whereValue= {username, pracTitle};
         db.delete(TakenPracTable.NAME, TakenPracTable.Cols.USERNAME + " = ? AND " + TakenPracTable.Cols.PRAC_TITLE + " = ?", whereValue );
     }
+     */
 
 }
