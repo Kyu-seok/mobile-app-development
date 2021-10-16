@@ -40,10 +40,9 @@ public class Data implements Serializable {
 
 
 
-        getStudentList(1);
-
     }
 
+    /*
     public boolean hasUser(String username){
         boolean hasUser = false;
         for (int i = 0; i < users.size(); i++) {
@@ -336,24 +335,8 @@ public class Data implements Serializable {
         user.setTotalMarkAvailable(totalMark);
     }
 
-    public void calculateMarksScored(User user) {
-        String username = user.getUser_name();
-        double markScored = 0;
-        for (int i = 0; i < takenPracs.size(); i++) {
-            if (username.equals(takenPracs.get(i).getUsername())) {
-                markScored += takenPracs.get(i).getMarkScored();
-            }
-        }
-        Log.d(TAG, "calculateMarksScored: username: " + username + " markScored : " + markScored);
-        user.setTotalMarkScored(markScored);
-    }
+     */
 
-    public void setStudentMark(List<User> list) {
-        for (int i = 0; i < list.size(); i++) {
-            calculateTotalMarksAvailable(list.get(i));
-            calculateMarksScored(list.get(i));
-        }
-    }
 
 
 
