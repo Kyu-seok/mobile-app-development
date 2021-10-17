@@ -1,6 +1,8 @@
 package com.yeumkyuseok.mathtest;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
 
     String firstName, lastName, phoneNum, email, photo, fullName;
 

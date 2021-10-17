@@ -1,6 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/textNormalQuestionNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Question  Number X"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textNormalQuestionQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="question: ???"
+        app:layout_constraintEnd_toEndOf="@+id/textNormalQuestionNumber"
+        app:layout_constraintStart_toStartOf="@+id/textNormalQuestionNumber"
+        app:layout_constraintTop_toBottomOf="@+id/textNormalQuestionNumber" />
+
+    <TextView
+        android:id="@+id/textNormalQuestionPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="page 1/3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textNormalQuestionQuestion"
+        app:layout_constraintStart_toStartOf="@+id/textNormalQuestionQuestion"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonPrevAns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Prev"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textNormalQuestionPage"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonNextAns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Next"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textNormalQuestionPage"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/buttonAns1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Ans1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textNormalQuestionPage" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <Button
+        android:id="@+id/buttonAns2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ans2"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonAns1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline2" />
+
+    <Button
+        android:id="@+id/buttonAns3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="ans3"
+        app:layout_constraintEnd_toEndOf="@+id/buttonAns1"
+        app:layout_constraintStart_toStartOf="@+id/buttonAns1"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAns1" />
+
+    <Button
+        android:id="@+id/buttonAns4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ans4"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonAns3"
+        app:layout_constraintEnd_toEndOf="@+id/buttonAns2"
+        app:layout_constraintStart_toStartOf="@+id/buttonAns2" />
+
+    <Button
+        android:id="@+id/buttonNormalPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#FFEB3B"
+        android:text="Pass"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/buttonNormalQuit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#F44336"
+        android:text="quit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textNormalQuestionMark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Mark : 20"
+        app:layout_constraintEnd_toEndOf="@+id/textNormalQuestionQuestion"
+        app:layout_constraintStart_toStartOf="@+id/textNormalQuestionQuestion"
+        app:layout_constraintTop_toBottomOf="@+id/textNormalQuestionQuestion" />
+
+    <TextView
+        android:id="@+id/textNormalTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="60"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/textNormalQuestionMark"
+        app:layout_constraintStart_toStartOf="@+id/textNormalQuestionMark"
+        app:layout_constraintTop_toBottomOf="@+id/textNormalQuestionMark" />
 </androidx.constraintlayout.widget.ConstraintLayout>

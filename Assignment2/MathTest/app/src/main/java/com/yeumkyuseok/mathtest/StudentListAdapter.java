@@ -16,6 +16,7 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.StudentViewHolder> {
@@ -45,18 +46,16 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
         // holder.textStudentMark.setText(Double.toString(tempStudents.get(position).get())+"%");
         holder.imgAvatar.setImageResource(R.drawable.student);
 
-        /*
         holder.studentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, SingleStudentActivity.class);
-                String username = tempUsers.get(position).getUser_name();
-                intent.putExtra("username", username);
+                Intent intent = new Intent(context, Test.class);
+                Student clickedStudent = tempStudents.get(position);
+                intent.putExtra("student", clickedStudent);
                 context.startActivity(intent);
             }
         });
 
-         */
     }
 
     @Override

@@ -13,15 +13,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.student_list_layout);
 
         DBHelper db = new DBHelper(this);
         Data data = new Data();
         data.load(this);
 
 
-        setContentView(R.layout.student_list_layout);
         studentRecyclerView = (RecyclerView) findViewById(R.id.studentRecyclerView);
 
         // temp values inputted

@@ -3,8 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../layout/custom_preview.xml" value="0.2935185185185185" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/activity_test.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/iamge_choose_layout.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/load_contact_layout.xml" value="0.22467105263157894" />
+        <entry key="app/src/main/res/layout/question_blank_layout.xml" value="0.22467105263157894" />
+        <entry key="app/src/main/res/layout/question_normal_layout.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/ready_state.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/student_list_layout.xml" value="0.33" />
         <entry key="app/src/main/res/layout/student_row.xml" value="0.35572916666666665" />
       </map>
