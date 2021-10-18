@@ -36,7 +36,7 @@ public class Test extends AppCompatActivity {
     public static final String BASE_URL = "https://192.168.219.102:8000/random/question";
 
     Student studentTaking;
-    int markScored = 0, questionNumber = 0,  currPage, totalPage, totalAnsButton, currBtnNum;
+    int markScored = 0, questionNumber = 0,  currPage, totalPage, totalAnsButton, currBtnNum, answer;
     long timeLeftInMillis;
     LocalDateTime dateTime;
     JSONObject jsonObject;
@@ -143,6 +143,7 @@ public class Test extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
+            currPage = 1;
             getNextQuestion();
         }
 
@@ -152,7 +153,7 @@ public class Test extends AppCompatActivity {
     private void getNextQuestion() {
         String question;
         JSONArray options;
-        int givenTime, answer;
+        int givenTime;
 
         try {
             // do things here
@@ -162,11 +163,18 @@ public class Test extends AppCompatActivity {
             Log.d(TAG, "check JsonObject timetosolve: " + jsonObject.get("timetosolve"));
 
             options = jsonObject.getJSONArray("options");
+            answer = jsonObject.getInt("result");
 
             if (options.length() > 0)  {
+                if (options.length() % 4 == 0) {
+                    totalPage = options.length() / 4;
+                } else {
+                    totalPage = (options.length() / 4 ) + 1;
+                }
+                Log.d(TAG, "getNextQuestion: options.length = " + options.length());
+                Log.d(TAG, "getNextQuestion: total page = " + totalPage);
+                totalAnsButton = options.length();
                 loadNormalQuestion(jsonObject);
-                currPage = 1;
-                totalPage = (jsonObject.length() / 4 ) + 1;
             } else {
                 loadBlankQuestion(jsonObject);
             }
@@ -181,7 +189,7 @@ public class Test extends AppCompatActivity {
         setContentView(R.layout.question_normal_layout);
 
         String questionContent;
-        int answer, timeToSolve, remainingTime;
+        int timeToSolve, remainingTime;
 
         btnPrev = (Button) findViewById(R.id.buttonPrevAns);
         btnNext = (Button) findViewById(R.id.buttonNextAns);
@@ -202,25 +210,27 @@ public class Test extends AppCompatActivity {
         try {
             questionContent = (String) jsonObject.get("question");
             options = jsonObject.getJSONArray("options");
-            totalAnsButton = options.length();
-                    answer = jsonObject.getInt("result");
             timeToSolve = jsonObject.getInt("timetosolve");
             remainingTime = timeToSolve;
-            timeLeftInMillis = timeToSolve * 100; // todo : change 100 to 1000
+            timeLeftInMillis = timeToSolve * 200; // todo : change 100 to 1000
 
             setInformation(txtNormQuestionNum, txtNormQuestionQuestion, txtNormMark);
             startTimer(txtNormTime);
             setPage();
 
             if (options.length() <= 4) {
+                /*
                 totalPage = 1;
                 currPage = 1;
+                 */
                 // TODO : remove currBtnNum calucation and add functionality fo calcualting the number in the method
                 currBtnNum = totalAnsButton;
                 setButton();
             } else {
+                /*
                 totalPage = (totalAnsButton / 4) + 1;
                 currPage = 1;
+                 */
                 // TODO : remove currBtnNum calucation and add functionality fo calcualting the number in the method
                 if (currPage < totalPage) {
                     currBtnNum = 4;
@@ -259,7 +269,29 @@ public class Test extends AppCompatActivity {
                 }
             }
         });
+
+        btnAns1.setOnClickListener(ansBtnOnClickListener);
+        btnAns2.setOnClickListener(ansBtnOnClickListener);
+        btnAns3.setOnClickListener(ansBtnOnClickListener);
+        btnAns4.setOnClickListener(ansBtnOnClickListener);
     }
+
+    private View.OnClickListener ansBtnOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Button button = (Button) v;
+            int chosen = Integer.parseInt(button.getText().toString());
+            Log.d(TAG, "onClick: " + chosen + " clicked");
+            if (answer == chosen){
+                Toast.makeText(Test.this, "correct", Toast.LENGTH_SHORT).show();
+                markScored += 5;
+            } else {
+                Toast.makeText(Test.this, "wrong", Toast.LENGTH_SHORT).show();
+                markScored -= 5;
+            }
+            doTest();
+        }
+    };
 
     private void setPage() {
         txtNormPage.setText(currPage + " / " + totalPage);
