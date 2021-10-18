@@ -282,6 +282,59 @@ public class Test extends AppCompatActivity {
 
     private void loadBlankQuestion(JSONObject jsonObject) {
         setContentView(R.layout.question_blank_layout);
+        btnBlankQuit = (Button) findViewById(R.id.buttonBlankQuestionQuit);
+        btnBlankPass = (Button) findViewById(R.id.buttonBlankQuestionPass);
+        btnBlankAnswer = (Button) findViewById(R.id.buttonBlankQuestionAnswer);
+        txtBlankQuestionNum = (TextView) findViewById(R.id.textBlankQuestionNumber);
+        txtBlankQuestionQuestion = (TextView) findViewById(R.id.textBlankQuestionQuestion);
+        txtBlankMark = (TextView) findViewById(R.id.textBlankQuestionMark);
+        txtBlankTime = (TextView) findViewById(R.id.textBlankTime);
+        txtBlankAnswer = (TextView) findViewById(R.id.editTextBlankQuestionAnswer);
+
+        try {
+            int timeToSolve;
+            timeToSolve = jsonObject.getInt("timetosolve");
+            timeLeftInMillis = timeToSolve * 1000;
+
+            setInformation(txtBlankQuestionNum, txtBlankQuestionQuestion, txtBlankMark);
+            startTimer(txtBlankTime);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        btnBlankAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countDownTimer.cancel();
+                int input = Integer.parseInt(txtBlankAnswer.getText().toString());
+                if (input == answer) {
+                    Toast.makeText(Test.this, "correct", Toast.LENGTH_SHORT).show();
+                    markScored += 10;
+                } else {
+                    Toast.makeText(Test.this, "wrong", Toast.LENGTH_SHORT).show();
+                    markScored -= 5;
+                }
+                doTest();
+            }
+        });
+
+        btnBlankPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countDownTimer.cancel();
+                doTest();
+            }
+        });
+
+        btnBlankQuit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countDownTimer.cancel();
+                // set content view
+            }
+        });
+
     }
 
     private View.OnClickListener ansBtnOnClickListener = new View.OnClickListener() {
