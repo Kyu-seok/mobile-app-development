@@ -35,6 +35,7 @@ public class Test extends AppCompatActivity {
     // public static final String BASE_URL = "https://10.0.2.2:8000/random/question";
     public static final String BASE_URL = "https://192.168.219.102:8000/random/question";
 
+
     Student studentTaking;
     int markScored = 0, questionNumber = 0,  currPage, totalPage, totalAnsButton, currBtnNum, answer;
     long timeLeftInMillis;
@@ -82,6 +83,7 @@ public class Test extends AppCompatActivity {
     }
 
     private void doTest() {
+        questionNumber++;
         new DownloaderTask().execute();
     }
 
@@ -146,8 +148,6 @@ public class Test extends AppCompatActivity {
             currPage = 1;
             getNextQuestion();
         }
-
-
     }
 
     private void getNextQuestion() {
@@ -200,7 +200,7 @@ public class Test extends AppCompatActivity {
         btnNext = (Button) findViewById(R.id.buttonNextAns);
         btnPrev = (Button) findViewById(R.id.buttonPrevAns);
         btnNormalQuit = (Button) findViewById(R.id.buttonNormalQuit);
-        btnNormalPass = (Button) findViewById(R.id.buttonBlankQuestionPass);
+        btnNormalPass = (Button) findViewById(R.id.buttonNormalPass);
         txtNormQuestionNum = (TextView) findViewById(R.id.textNormalQuestionNumber);
         txtNormQuestionQuestion = (TextView) findViewById(R.id.textNormalQuestionQuestion);
         txtNormMark = (TextView) findViewById(R.id.textNormalQuestionMark);
@@ -219,27 +219,15 @@ public class Test extends AppCompatActivity {
             setPage();
 
             if (options.length() <= 4) {
-                /*
-                totalPage = 1;
-                currPage = 1;
-                 */
-                // TODO : remove currBtnNum calucation and add functionality fo calcualting the number in the method
                 currBtnNum = totalAnsButton;
-                setButton();
             } else {
-                /*
-                totalPage = (totalAnsButton / 4) + 1;
-                currPage = 1;
-                 */
-                // TODO : remove currBtnNum calucation and add functionality fo calcualting the number in the method
                 if (currPage < totalPage) {
                     currBtnNum = 4;
                 } else {
                     currBtnNum = totalAnsButton - (currPage * 4);
                 }
-                setButton();
             }
-
+            setButton();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -270,21 +258,42 @@ public class Test extends AppCompatActivity {
             }
         });
 
+        btnNormalPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countDownTimer.cancel();
+                doTest();
+            }
+        });
+
+        btnNormalQuit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countDownTimer.cancel();
+                // todo : implement resutl intent
+            }
+        });
+
         btnAns1.setOnClickListener(ansBtnOnClickListener);
         btnAns2.setOnClickListener(ansBtnOnClickListener);
         btnAns3.setOnClickListener(ansBtnOnClickListener);
         btnAns4.setOnClickListener(ansBtnOnClickListener);
     }
 
+    private void loadBlankQuestion(JSONObject jsonObject) {
+        setContentView(R.layout.question_blank_layout);
+    }
+
     private View.OnClickListener ansBtnOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Button button = (Button) v;
+            countDownTimer.cancel();
             int chosen = Integer.parseInt(button.getText().toString());
             Log.d(TAG, "onClick: " + chosen + " clicked");
             if (answer == chosen){
                 Toast.makeText(Test.this, "correct", Toast.LENGTH_SHORT).show();
-                markScored += 5;
+                markScored += 10;
             } else {
                 Toast.makeText(Test.this, "wrong", Toast.LENGTH_SHORT).show();
                 markScored -= 5;
@@ -353,9 +362,7 @@ public class Test extends AppCompatActivity {
         textMark.setText("Mark : " + markScored);
     }
 
-    private void loadBlankQuestion(JSONObject jsonObject) {
-        setContentView(R.layout.question_blank_layout);
-    }
+
 
     private void startTimer(TextView textView) {
         countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
