@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,6 +24,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
+import java.util.Iterator;
+import java.util.Locale;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -29,12 +33,15 @@ public class Test extends AppCompatActivity {
 
     private static final String TAG = "Test.java";
     // public static final String BASE_URL = "https://10.0.2.2:8000/random/question";
-    public static final String BASE_URL = "https://192.168.219.104:8000/random/question";
+    public static final String BASE_URL = "https://192.168.219.102:8000/random/question";
 
     Student studentTaking;
-    int markScored = 0, questionNumber = 1;
+    int markScored = 0, questionNumber = 0,  currPage, totalPage, totalAnsButton, currBtnNum;
+    long timeLeftInMillis;
     LocalDateTime dateTime;
     JSONObject jsonObject;
+    JSONArray options;
+    CountDownTimer countDownTimer;
 
     // R.layout.ready_state.xml
     Button btnStart, btnDelete;
@@ -120,6 +127,7 @@ public class Test extends AppCompatActivity {
                         publishProgress(totalBytesRead);
                     }
                     baos.close();
+
                     jsonObject = new JSONObject(new String(baos.toByteArray()));
                     return new String(baos.toByteArray());
                 } finally {
@@ -133,55 +141,46 @@ public class Test extends AppCompatActivity {
 
         }
 
-        /*
-        @Override
-        protected void onProgressUpdate(Integer... progress) {
-            progressBar.setIndeterminate(false);
-            progressBar.setMax(totalBytes);
-            progressBar.setProgress(progress[0]);
-        }
-        */
-
         @Override
         protected void onPostExecute(String result) {
-            // textArea.setText(result);
-            // progressBar.setVisibility(View.INVISIBLE);
-
-            String question;
-            JSONArray options;
-            int givenTime, answer;
-
-            Log.d(TAG, "onPostExecute: result :" + result);
-            try {
-                // do things here
-                Log.d(TAG, "check JsonObject question: " + jsonObject.get("question"));
-                Log.d(TAG, "check JsonObject result: " + jsonObject.get("result"));
-                Log.d(TAG, "check JsonObject options: " + jsonObject.get("options"));
-                Log.d(TAG, "check JsonObject timetosolve: " + jsonObject.get("timetosolve"));
-
-                options = jsonObject.getJSONArray("options");
-
-                if (options.length() > 0)  {
-                    loadNormalQuestion(jsonObject);
-                } else {
-                    loadBlankQuestion(jsonObject);
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            getNextQuestion();
         }
 
 
     }
 
+    private void getNextQuestion() {
+        String question;
+        JSONArray options;
+        int givenTime, answer;
 
-    // implement all the functions here
+        try {
+            // do things here
+            Log.d(TAG, "check JsonObject question: " + jsonObject.get("question"));
+            Log.d(TAG, "check JsonObject result: " + jsonObject.get("result"));
+            Log.d(TAG, "check JsonObject options: " + jsonObject.get("options"));
+            Log.d(TAG, "check JsonObject timetosolve: " + jsonObject.get("timetosolve"));
+
+            options = jsonObject.getJSONArray("options");
+
+            if (options.length() > 0)  {
+                loadNormalQuestion(jsonObject);
+                currPage = 1;
+                totalPage = (jsonObject.length() / 4 ) + 1;
+            } else {
+                loadBlankQuestion(jsonObject);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private void loadNormalQuestion(JSONObject jsonObject) {
         setContentView(R.layout.question_normal_layout);
 
         String questionContent;
-        JSONArray options;
         int answer, timeToSolve, remainingTime;
 
         btnPrev = (Button) findViewById(R.id.buttonPrevAns);
@@ -190,6 +189,8 @@ public class Test extends AppCompatActivity {
         btnAns2 = (Button) findViewById(R.id.buttonAns2);
         btnAns3 = (Button) findViewById(R.id.buttonAns3);
         btnAns4 = (Button) findViewById(R.id.buttonAns4);
+        btnNext = (Button) findViewById(R.id.buttonNextAns);
+        btnPrev = (Button) findViewById(R.id.buttonPrevAns);
         btnNormalQuit = (Button) findViewById(R.id.buttonNormalQuit);
         btnNormalPass = (Button) findViewById(R.id.buttonBlankQuestionPass);
         txtNormQuestionNum = (TextView) findViewById(R.id.textNormalQuestionNumber);
@@ -201,28 +202,150 @@ public class Test extends AppCompatActivity {
         try {
             questionContent = (String) jsonObject.get("question");
             options = jsonObject.getJSONArray("options");
-            answer = jsonObject.getInt("result");
+            totalAnsButton = options.length();
+                    answer = jsonObject.getInt("result");
             timeToSolve = jsonObject.getInt("timetosolve");
             remainingTime = timeToSolve;
+            timeLeftInMillis = timeToSolve * 100; // todo : change 100 to 1000
 
+            setInformation(txtNormQuestionNum, txtNormQuestionQuestion, txtNormMark);
+            startTimer(txtNormTime);
+            setPage();
 
-            txtNormQuestionNum.setText("Question Number " + questionNumber);
-            txtNormQuestionQuestion.setText("Question: " + questionContent);
-            txtNormMark.setText("Mark : " + markScored);
-            txtNormTime.setText(remainingTime + " s");
-
-            btnAns1.setText(options.getString(0));
-            btnAns2.setText(options.getString(1));
-            btnAns3.setText(options.getString(2));
-            btnAns4.setText(options.getString(3));
+            if (options.length() <= 4) {
+                totalPage = 1;
+                currPage = 1;
+                // TODO : remove currBtnNum calucation and add functionality fo calcualting the number in the method
+                currBtnNum = totalAnsButton;
+                setButton();
+            } else {
+                totalPage = (totalAnsButton / 4) + 1;
+                currPage = 1;
+                // TODO : remove currBtnNum calucation and add functionality fo calcualting the number in the method
+                if (currPage < totalPage) {
+                    currBtnNum = 4;
+                } else {
+                    currBtnNum = totalAnsButton - (currPage * 4);
+                }
+                setButton();
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currPage == totalPage) {
+                    Toast.makeText(Test.this, "Max Page", Toast.LENGTH_SHORT).show();
+                } else {
+                    currPage++;
+                    setButton();
+                    setPage();
+                }
+            }
+        });
+
+        btnPrev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currPage == 1) {
+                    Toast.makeText(Test.this, "Min Page", Toast.LENGTH_SHORT).show();
+                } else {
+                    currPage--;
+                    setButton();
+                    setPage();
+                }
+            }
+        });
+    }
+
+    private void setPage() {
+        txtNormPage.setText(currPage + " / " + totalPage);
+    }
+
+    private void setButton() {
+        int startIndex = ((currPage - 1) * 4);
+        if (currPage == totalPage) {
+            int numberOfButton = totalAnsButton - startIndex;
+
+            try {
+                if (numberOfButton == 1) {
+                    btnAns1.setText(options.getString(startIndex + 0));
+                    btnAns2.setVisibility(View.GONE);
+                    btnAns3.setVisibility(View.GONE);
+                    btnAns4.setVisibility(View.GONE);
+                } else if (numberOfButton == 2) {
+                    btnAns1.setText(options.getString(startIndex + 0));
+                    btnAns2.setText(options.getString(startIndex + 1));
+                    btnAns3.setVisibility(View.GONE);
+                    btnAns4.setVisibility(View.GONE);
+                } else if (numberOfButton == 3) {
+                    btnAns1.setText(options.getString(startIndex + 0));
+                    btnAns2.setText(options.getString(startIndex + 1));
+                    btnAns3.setText(options.getString(startIndex + 2));
+                    btnAns4.setVisibility(View.GONE);
+                } else if (numberOfButton == 4) {
+                    btnAns1.setText(options.getString(startIndex + 0));
+                    btnAns2.setText(options.getString(startIndex + 1));
+                    btnAns3.setText(options.getString(startIndex + 2));
+                    btnAns4.setText(options.getString(startIndex + 3));
+                }
+            } catch (JSONException e) {
+                Log.d(TAG, "setButton: error");
+            }
+        } else {
+            btnAns1.setVisibility(View.VISIBLE);
+            btnAns2.setVisibility(View.VISIBLE);
+            btnAns3.setVisibility(View.VISIBLE);
+            btnAns4.setVisibility(View.VISIBLE);
+            try {
+                btnAns1.setText(options.getString(startIndex + 0));
+                btnAns2.setText(options.getString(startIndex + 1));
+                btnAns3.setText(options.getString(startIndex + 2));
+                btnAns4.setText(options.getString(startIndex + 3));
+            } catch (JSONException e) {
+                Log.d(TAG, "setButton: error");
+            }
+        }
+    }
+
+    private void setInformation(TextView textQuestionNumber, TextView textQuestion, TextView textMark) {
+        textQuestionNumber.setText("Question Number " + questionNumber);
+        try {
+            textQuestion.setText("Question: " + jsonObject.get("question"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        textMark.setText("Mark : " + markScored);
     }
 
     private void loadBlankQuestion(JSONObject jsonObject) {
         setContentView(R.layout.question_blank_layout);
+    }
+
+    private void startTimer(TextView textView) {
+        countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeftInMillis = millisUntilFinished;
+                updateCountDownTest(textView);
+            }
+
+            @Override
+            public void onFinish() {
+                doTest();
+            }
+        }.start();
+    }
+
+    private void updateCountDownTest(TextView textView) {
+        int minutes = (int) (timeLeftInMillis / 1000) / 60;
+        int seconds = (int) (timeLeftInMillis / 1000) % 60;
+
+        String timeLeftFormatted = String.format(Locale.getDefault(),"%02d:%02d", minutes, seconds);
+        textView.setText(timeLeftFormatted);
     }
 
 }

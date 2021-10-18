@@ -60,7 +60,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
+        android:backgroundTint="#8BC34A"
         android:text="Ans1"
+        android:textColor="#000000"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textNormalQuestionPage" />
@@ -76,7 +78,9 @@
         android:id="@+id/buttonAns2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#8BC34A"
         android:text="ans2"
+        android:textColor="#000000"
         app:layout_constraintBaseline_toBaselineOf="@+id/buttonAns1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline2" />
@@ -86,7 +90,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:backgroundTint="#8BC34A"
         android:text="ans3"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="@+id/buttonAns1"
         app:layout_constraintStart_toStartOf="@+id/buttonAns1"
         app:layout_constraintTop_toBottomOf="@+id/buttonAns1" />
@@ -95,7 +101,9 @@
         android:id="@+id/buttonAns4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#8BC34A"
         android:text="ans4"
+        android:textColor="#000000"
         app:layout_constraintBaseline_toBaselineOf="@+id/buttonAns3"
         app:layout_constraintEnd_toEndOf="@+id/buttonAns2"
         app:layout_constraintStart_toStartOf="@+id/buttonAns2" />
