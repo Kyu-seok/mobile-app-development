@@ -33,7 +33,7 @@ public class Test extends AppCompatActivity {
 
     private static final String TAG = "Test.java";
     // public static final String BASE_URL = "https://10.0.2.2:8000/random/question";
-    public static final String BASE_URL = "https://192.168.219.102:8000/random/question";
+    public static final String BASE_URL = "https://192.168.219.107:8000/random/question";
 
 
     Student studentTaking;
@@ -71,8 +71,8 @@ public class Test extends AppCompatActivity {
         studentTaking = (Student) intent.getExtras().get("student");
 
         txtName.setText("Name : " + studentTaking.getFullName());
-        txtEmail.setText("Email : " + studentTaking.getEmail());
-        txtPhone.setText("Phone No : " + studentTaking.getPhoneNum());
+        //txtEmail.setText("Email : " + studentTaking.getEmail());
+        //txtPhone.setText("Phone No : " + studentTaking.getPhoneNum());
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,7 +212,7 @@ public class Test extends AppCompatActivity {
             options = jsonObject.getJSONArray("options");
             timeToSolve = jsonObject.getInt("timetosolve");
             remainingTime = timeToSolve;
-            timeLeftInMillis = timeToSolve * 200; // todo : change 100 to 1000
+            timeLeftInMillis = timeToSolve * 1000;
 
             setInformation(txtNormQuestionNum, txtNormQuestionQuestion, txtNormMark);
             startTimer(txtNormTime);

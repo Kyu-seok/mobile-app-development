@@ -2,7 +2,6 @@ package com.yeumkyuseok.mathtest;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,6 +12,8 @@ public class Data implements Serializable {
 
     public List<Student> students = new ArrayList<>();
     public List<Result> results = new ArrayList<>();
+    public List<EmailAddr> emails = new ArrayList<>();
+    public List<Phone> phones = new ArrayList<>();
 
     DBModel dbModel = new DBModel();
     Cursor cursor;
@@ -37,9 +38,11 @@ public class Data implements Serializable {
             dbCursor = new DBCursor(cursor);
             results.add(dbCursor.getResult());
         }
+    }
 
-
-
+    public void addStudent(Student student) {
+        students.add(student);
+        dbModel.addStudent(student);
     }
 
     /*

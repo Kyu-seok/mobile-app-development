@@ -12,11 +12,9 @@ public class DBCursor extends CursorWrapper {
     public Student getStudent() {
         String firstName = getString(getColumnIndex("first_name"));
         String lastName = getString(getColumnIndex("last_name"));
-        String phoneNum = getString(getColumnIndex("phone_num"));
-        String email = getString(getColumnIndex("email"));
         String photo = getString(getColumnIndex("photo"));
 
-        return new Student(firstName, lastName, phoneNum, email, photo);
+        return new Student(firstName, lastName);
     }
 
     public Result getResult() {

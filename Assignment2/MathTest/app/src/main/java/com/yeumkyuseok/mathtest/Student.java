@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 public class Student implements Serializable {
 
-    String firstName, lastName, phoneNum, email, photo, fullName;
+    String firstName, lastName, phoneNum[], email[], photo, fullName;
 
-    public Student(String firstName, String lastName, String phoneNum, String email, String photo) {
+    public Student(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNum = phoneNum;
-        this.email = email;
+        // this.phoneNum = phoneNum;
+        // this.email = email;
         this.photo = photo;
         this.fullName = firstName + " " + lastName;
     }
@@ -32,6 +32,7 @@ public class Student implements Serializable {
         this.lastName = lastName;
     }
 
+    /*
     public String getPhoneNum() {
         return phoneNum;
     }
@@ -47,6 +48,7 @@ public class Student implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+     */
 
     public String getPhoto() {
         return photo;

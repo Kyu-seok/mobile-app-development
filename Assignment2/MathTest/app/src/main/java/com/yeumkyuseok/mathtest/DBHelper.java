@@ -24,21 +24,35 @@ public class DBHelper extends SQLiteOpenHelper implements Serializable {
                 "CREATE TABLE student (\n" +
                         "    first_name VARCHAR(30),\n" +
                         "    last_name VARCHAR(30),\n" +
-                        "    phone_num VARCHAR(200),\n" +
-                        "    email VARCHAR(200),\n" +
+                        "    full_name VARCHAR(60),\n" +
                         "    photo VARCHAR(100)\n" +
                         ");"
         );
 
         db.execSQL(
                 "CREATE TABLE result (\n" +
-                        "    first_name VARCHAR(30),\n" +
-                        "    last_name VARCHAR(30),\n" +
+                        "    full_NAME VARCHAR(60),\n" +
                         "    score INTEGER,\n" +
                         "    start_time VARCHAR(30),\n" +
                         "    time_taken INTEGER\n" +
                         ");"
         );
+
+        db.execSQL(
+                "CREATE TABLE phone (\n" +
+                        "    full_NAME VARCHAR(60),\n" +
+                        "   phone_no VARCHAR (15)" +
+                        ");"
+        );
+
+        db.execSQL(
+                "CREATE TABLE email (\n" +
+                        "    full_NAME VARCHAR(60),\n" +
+                        "   email_adr VARCHAR(40)\n" +
+                        ");"
+        );
+
+
     }
 
     @Override

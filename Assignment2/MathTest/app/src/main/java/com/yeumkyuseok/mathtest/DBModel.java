@@ -9,7 +9,21 @@ public class DBModel {
     private static final String TAG = "DBModel";
 
     public void addStudent(Student student) {
-        Log.d(TAG, "addStudent: add function here");
+        ContentValues cv = new ContentValues();
+        cv.put("first_name", student.getFirstName());
+        cv.put("last_name", student.getLastName());
+        cv.put("full_name", student.getFullName());
+
+        db.insert("student", null, cv);
+    }
+
+    public void addEmail(EmailAddr email) {
+        ContentValues cv = new ContentValues();
+        // TODO : impelement here
+        for (int i = 0; i < email.getEmails().length; i++) {
+            cv.put("full_name", email.getFullName());
+        }
+
     }
 
     public void editStudent(Student student) {
