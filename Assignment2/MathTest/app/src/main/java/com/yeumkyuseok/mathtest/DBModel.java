@@ -19,11 +19,22 @@ public class DBModel {
 
     public void addEmail(EmailAddr email) {
         ContentValues cv = new ContentValues();
-        // TODO : impelement here
-        for (int i = 0; i < email.getEmails().length; i++) {
+        for (int i = 0; i < email.getEmails().size(); i++) {
             cv.put("full_name", email.getFullName());
-        }
+            cv.put("email_adr", email.getEmails().get(i));
 
+            db.insert("email", null, cv);
+        }
+    }
+
+    public void addPhone(Phone phone) {
+        ContentValues cv = new ContentValues();
+        for (int i = 0; i < phone.getPhoneNumbers().size(); i++) {
+            cv.put("full_name", phone.getFullName());
+            cv.put("phone_no", phone.getPhoneNumbers().get(i));
+
+            db.insert("phone", null, cv);
+        }
     }
 
     public void editStudent(Student student) {

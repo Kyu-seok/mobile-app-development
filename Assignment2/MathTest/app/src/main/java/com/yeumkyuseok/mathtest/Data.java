@@ -45,6 +45,16 @@ public class Data implements Serializable {
         dbModel.addStudent(student);
     }
 
+    public void addEmail(EmailAddr emailAddr) {
+        emails.add(emailAddr);
+        dbModel.addEmail(emailAddr);
+    }
+
+    public void addPhone(Phone phone) {
+        phones.add(phone);
+        dbModel.addPhone(phone);
+    }
+
     /*
     public boolean hasUser(String username){
         boolean hasUser = false;

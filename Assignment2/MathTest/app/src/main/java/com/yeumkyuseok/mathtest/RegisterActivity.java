@@ -61,6 +61,77 @@ public class RegisterActivity extends AppCompatActivity {
                 if ((textFirstName.getText().length() > 0 ) && (textLastName.getText().length() > 0 )) {
                     student = new Student((textFirstName.getText().toString()), textLastName.getText().toString());
                     data.addStudent(student);
+                    emailAddr = new EmailAddr(student.getFullName());
+                    phone = new Phone(student.getFullName());
+                    if (textEmail1.getText().length() > 0) {
+                        emailAddr.addEmail(textEmail1.getText().toString());
+                    }
+                    if (textEmail2.getText().length() > 0) {
+                        emailAddr.addEmail(textEmail2.getText().toString());
+                    }
+                    if (textEmail3.getText().length() > 0) {
+                        emailAddr.addEmail(textEmail3.getText().toString());
+                    }
+                    if (textEmail4.getText().length() > 0) {
+                        emailAddr.addEmail(textEmail4.getText().toString());
+                    }
+                    if (textEmail5.getText().length() > 0) {
+                        emailAddr.addEmail(textEmail5.getText().toString());
+                    }
+                    if (textEmail6.getText().length() > 0) {
+                        emailAddr.addEmail(textEmail6.getText().toString());
+                    }
+                    if (textEmail7.getText().length() > 0) {
+                        emailAddr.addEmail(textEmail7.getText().toString());
+                    }
+                    if (textEmail8.getText().length() > 0) {
+                        emailAddr.addEmail(textEmail8.getText().toString());
+                    }
+                    if (textEmail9.getText().length() > 0) {
+                        emailAddr.addEmail(textEmail9.getText().toString());
+                    }
+                    if (textEmail10.getText().length() > 0) {
+                        emailAddr.addEmail(textEmail10.getText().toString());
+                    }
+                    data.addEmail(emailAddr);
+
+                    if (textPhoneNo1.getText().length() > 0) {
+                        phone.addPhoneNo(textPhoneNo1.getText().toString());
+                    }
+                    if (textPhoneNo2.getText().length() > 0) {
+                        phone.addPhoneNo(textPhoneNo2.getText().toString());
+                    }
+                    if (textPhoneNo3.getText().length() > 0) {
+                        phone.addPhoneNo(textPhoneNo3.getText().toString());
+                    }
+                    if (textPhoneNo4.getText().length() > 0) {
+                        phone.addPhoneNo(textPhoneNo4.getText().toString());
+                    }
+                    if (textPhoneNo5.getText().length() > 0) {
+                        phone.addPhoneNo(textPhoneNo5.getText().toString());
+                    }
+                    if (textPhoneNo6.getText().length() > 0) {
+                        phone.addPhoneNo(textPhoneNo6.getText().toString());
+                    }
+                    if (textPhoneNo7.getText().length() > 0) {
+                        phone.addPhoneNo(textPhoneNo7.getText().toString());
+                    }
+                    if (textPhoneNo8.getText().length() > 0) {
+                        phone.addPhoneNo(textPhoneNo8.getText().toString());
+                    }
+                    if (textPhoneNo9.getText().length() > 0) {
+                        phone.addPhoneNo(textPhoneNo9.getText().toString());
+                    }
+                    if (textPhoneNo10.getText().length() > 0) {
+                        phone.addPhoneNo(textPhoneNo10.getText().toString());
+                    }
+                    if (textPhoneNo1.getText().length() > 0) {
+                        phone.addPhoneNo(textPhoneNo1.getText().toString());
+                    }
+                    data.addPhone(phone);
+
+
+
                     // TODO: intent has to be to ChooseImageActivity
                     Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(intent);

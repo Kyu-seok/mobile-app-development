@@ -1,13 +1,14 @@
 package com.yeumkyuseok.mathtest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmailAddr {
-    String fullName, emails[];
+    String fullName;
+    List<String> emails = new ArrayList<>();
 
-    public EmailAddr(String fullName, String emails[]) {
+    public EmailAddr(String fullName) {
         this.fullName = fullName;
-        this.emails = emails;
     }
 
     public String getFullName() {
@@ -18,11 +19,15 @@ public class EmailAddr {
         this.fullName = fullName;
     }
 
-    public String[] getEmails() {
+    public List<String> getEmails() {
         return emails;
     }
 
-    public void setEmails(String[] emails) {
+    public void setEmails(List<String> emails) {
         this.emails = emails;
+    }
+
+    public void addEmail(String email) {
+        emails.add(email);
     }
 }

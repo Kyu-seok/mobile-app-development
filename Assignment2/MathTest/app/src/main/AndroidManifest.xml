@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MathTest">
         <activity
+            android:name=".ChooseImageActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity2"
+            android:exported="true" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="true" />
         <activity
