@@ -59,6 +59,15 @@ public class ChooseImageActivity extends AppCompatActivity {
                 //data.addPhotoToStudent(student, currentPhotoPath);
             }
         });
+
+        btnLoadStorage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChooseImageActivity.this, LoadImage.class);
+                intent.putExtra("student", student);
+                startActivity(intent);
+            }
+        });
     }
 
     private void dispatchTakePictureIntent() {

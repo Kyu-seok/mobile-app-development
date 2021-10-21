@@ -5,10 +5,12 @@
       <map>
         <entry key="../../../../../../layout/custom_preview.xml" value="0.2935185185185185" />
         <entry key="app/src/main/res/layout/activity_choose_image.xml" value="0.21513157894736842" />
+        <entry key="app/src/main/res/layout/activity_load_image.xml" value="0.21513157894736842" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.22467105263157894" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.22467105263157894" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/gallery_item.xml" value="0.22467105263157894" />
         <entry key="app/src/main/res/layout/iamge_choose_layout.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/load_contact_layout.xml" value="0.22467105263157894" />
         <entry key="app/src/main/res/layout/question_blank_layout.xml" value="0.22467105263157894" />
