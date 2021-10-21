@@ -68,6 +68,15 @@ public class ChooseImageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnBrowseOnline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChooseImageActivity.this, BrowseImage.class);
+                intent.putExtra("student", student);
+                startActivity(intent);
+            }
+        });
     }
 
     private void dispatchTakePictureIntent() {

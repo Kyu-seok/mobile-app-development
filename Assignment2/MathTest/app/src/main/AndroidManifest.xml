@@ -27,6 +27,8 @@
         <activity
             android:name=".RegisterActivity"
             android:exported="true" />
+        <activity android:name=".BrowseImage"
+            android:exported="true"/>
         <activity
             android:name=".Test"
             android:exported="true" />

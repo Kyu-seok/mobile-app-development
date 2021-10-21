@@ -18,6 +18,8 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -51,10 +53,14 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
             Log.d(TAG, "onBindViewHolder: " + tempStudents.get(position).fullName + " photoPath : " + tempStudents.get(position).getPhoto());
             holder.imgAvatar.setImageResource(R.drawable.student);
         } else {
-            Log.d(TAG, "onBindViewHolder: " + tempStudents.get(position).fullName + " photoPath : " + tempStudents.get(position).getPhoto());
-            Bitmap bitmap = BitmapFactory.decodeFile(tempStudents.get(position).getPhoto());
+            if (tempStudents.get(position).getPhoto().contains("https")) {
+                Picasso.get().load(tempStudents.get(position).getPhoto()).into(holder.imgAvatar);
+            } else {
+                Log.d(TAG, "onBindViewHolder: " + tempStudents.get(position).fullName + " photoPath : " + tempStudents.get(position).getPhoto());
+                Bitmap bitmap = BitmapFactory.decodeFile(tempStudents.get(position).getPhoto());
 
-            holder.imgAvatar.setImageBitmap(bitmap);
+                holder.imgAvatar.setImageBitmap(bitmap);
+            }
         }
 
 

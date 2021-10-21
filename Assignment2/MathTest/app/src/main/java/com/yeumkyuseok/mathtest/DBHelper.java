@@ -25,7 +25,7 @@ public class DBHelper extends SQLiteOpenHelper implements Serializable {
                         "    first_name VARCHAR(30),\n" +
                         "    last_name VARCHAR(30),\n" +
                         "    full_name VARCHAR(60),\n" +
-                        "    photo VARCHAR(100)\n" +
+                        "    photo VARCHAR(300)\n" +
                         ");"
         );
 
