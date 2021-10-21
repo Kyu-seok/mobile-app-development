@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../../layout/custom_preview.xml" value="0.2935185185185185" />
+        <entry key="app/src/main/res/layout/activity_choose_image.xml" value="0.21513157894736842" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.22467105263157894" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.22467105263157894" />
@@ -16,6 +17,7 @@
         <entry key="app/src/main/res/layout/register_layout.xml" value="0.22467105263157894" />
         <entry key="app/src/main/res/layout/student_list_layout.xml" value="0.33" />
         <entry key="app/src/main/res/layout/student_row.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/xml/file_paths.xml" value="0.22467105263157894" />
       </map>
     </option>
   </component>

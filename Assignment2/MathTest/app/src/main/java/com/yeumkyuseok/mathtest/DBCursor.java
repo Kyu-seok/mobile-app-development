@@ -14,7 +14,11 @@ public class DBCursor extends CursorWrapper {
         String lastName = getString(getColumnIndex("last_name"));
         String photo = getString(getColumnIndex("photo"));
 
-        return new Student(firstName, lastName);
+        Student student = new Student(firstName, lastName);
+        student.setPhoto(photo);
+
+        // return new Student(firstName, lastName);
+        return student;
     }
 
     public Result getResult() {

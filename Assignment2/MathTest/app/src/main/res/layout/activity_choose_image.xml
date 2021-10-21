@@ -6,4 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".ChooseImageActivity">
 
+    <Button
+        android:id="@+id/buttonTakeLivePhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:text="Take Live Photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonLoadStorage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Load Image from Storage"
+        app:layout_constraintEnd_toEndOf="@+id/buttonTakeLivePhoto"
+        app:layout_constraintStart_toStartOf="@+id/buttonTakeLivePhoto"
+        app:layout_constraintTop_toBottomOf="@+id/buttonTakeLivePhoto" />
+
+    <Button
+        android:id="@+id/buttonBrowsePhotoOnline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Browse Photo Online"
+        app:layout_constraintEnd_toEndOf="@+id/buttonLoadStorage"
+        app:layout_constraintStart_toStartOf="@+id/buttonLoadStorage"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLoadStorage" />
 </androidx.constraintlayout.widget.ConstraintLayout>

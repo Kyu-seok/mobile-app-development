@@ -1,17 +1,21 @@
 package com.yeumkyuseok.mathtest;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Student implements Serializable {
 
-    String firstName, lastName, phoneNum[], email[], photo, fullName;
+    String firstName, lastName, photo, fullName;
+    List<String> emails;
+    List<String> phones;
+    int mark;
 
     public Student(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
         // this.phoneNum = phoneNum;
         // this.email = email;
-        this.photo = photo;
+        this.photo = "";
         this.fullName = firstName + " " + lastName;
     }
 
@@ -32,23 +36,25 @@ public class Student implements Serializable {
         this.lastName = lastName;
     }
 
-    /*
-    public String getPhoneNum() {
-        return phoneNum;
+    public List<String> getEmails() {
+        return emails;
     }
 
-    public void setPhoneNum(String phoneNum) {
-        this.phoneNum = phoneNum;
+    public void setEmails(List<String> emails) {
+        this.emails = emails;
     }
 
-    public String getEmail() {
-        return email;
+    public List<String> getPhones() {
+        return phones;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPhones(List<String> phones) {
+        this.phones = phones;
     }
-     */
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 
     public String getPhoto() {
         return photo;
@@ -60,5 +66,13 @@ public class Student implements Serializable {
 
     public String getFullName() {
         return fullName;
+    }
+
+    public int getMark() {
+        return mark;
+    }
+
+    public void setMark(int mark) {
+        this.mark = mark;
     }
 }

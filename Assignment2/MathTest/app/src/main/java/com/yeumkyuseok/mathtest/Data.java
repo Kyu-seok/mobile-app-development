@@ -55,6 +55,10 @@ public class Data implements Serializable {
         dbModel.addPhone(phone);
     }
 
+    public void addPhotoToStudent(Student student, String photoPath) {
+        dbModel.addPhotoToStudent(student, photoPath);
+    }
+
     /*
     public boolean hasUser(String username){
         boolean hasUser = false;

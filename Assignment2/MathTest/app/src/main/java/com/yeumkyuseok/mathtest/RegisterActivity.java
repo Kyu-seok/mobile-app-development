@@ -60,7 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if ((textFirstName.getText().length() > 0 ) && (textLastName.getText().length() > 0 )) {
                     student = new Student((textFirstName.getText().toString()), textLastName.getText().toString());
-                    data.addStudent(student);
+                    // data.addStudent(student)f;
                     emailAddr = new EmailAddr(student.getFullName());
                     phone = new Phone(student.getFullName());
                     if (textEmail1.getText().length() > 0) {
@@ -130,10 +130,11 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                     data.addPhone(phone);
 
+                    student.setEmails(emailAddr.emails);
+                    student.setPhones(phone.getPhoneNumbers());
 
-
-                    // TODO: intent has to be to ChooseImageActivity
-                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, ChooseImageActivity.class);
+                    intent.putExtra("student",student);
                     startActivity(intent);
                 } else {
                     Toast.makeText(RegisterActivity.this, "Please enter first & last name", Toast.LENGTH_SHORT).show();

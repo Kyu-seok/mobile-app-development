@@ -33,11 +33,6 @@ public class MainActivity extends AppCompatActivity {
         studentRecyclerView = (RecyclerView) findViewById(R.id.studentRecyclerView);
 
 
-        // temp values inputted
-        //data.students.add(new Student("john", "cena", "0102345678", "johnCena@gmail.com", ""));
-        //data.students.add(new Student("johna", "cena", "0102345678", "johnCena@gmail.com", ""));
-        //data.students.add(new Student("johnaa", "cena", "0102345678", "johnCena@gmail.com", ""));
-
         StudentListAdapter studentListAdapter = new StudentListAdapter(this, data.students);
         studentRecyclerView.setAdapter(studentListAdapter);
         studentRecyclerView.setLayoutManager(new LinearLayoutManager(this));

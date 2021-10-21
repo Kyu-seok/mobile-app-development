@@ -3,6 +3,8 @@ package com.yeumkyuseok.mathtest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,8 +45,18 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.textStudentName.setText(tempStudents.get(position).getFullName());
-        // holder.textStudentMark.setText(Double.toString(tempStudents.get(position).get())+"%");
-        holder.imgAvatar.setImageResource(R.drawable.student);
+        holder.textStudentMark.setText(tempStudents.get(position).getMark()+"%");
+        //holder.imgAvatar.setImageResource(R.drawable.student);
+        if (tempStudents.get(position).getPhoto() == null ) {
+            Log.d(TAG, "onBindViewHolder: " + tempStudents.get(position).fullName + " photoPath : " + tempStudents.get(position).getPhoto());
+            holder.imgAvatar.setImageResource(R.drawable.student);
+        } else {
+            Log.d(TAG, "onBindViewHolder: " + tempStudents.get(position).fullName + " photoPath : " + tempStudents.get(position).getPhoto());
+            Bitmap bitmap = BitmapFactory.decodeFile(tempStudents.get(position).getPhoto());
+
+            holder.imgAvatar.setImageBitmap(bitmap);
+        }
+
 
         holder.studentLayout.setOnClickListener(new View.OnClickListener() {
             @Override

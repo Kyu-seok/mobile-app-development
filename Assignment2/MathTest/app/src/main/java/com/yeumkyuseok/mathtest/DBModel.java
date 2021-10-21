@@ -13,6 +13,7 @@ public class DBModel {
         cv.put("first_name", student.getFirstName());
         cv.put("last_name", student.getLastName());
         cv.put("full_name", student.getFullName());
+        cv.put("photo", student.getPhoto());
 
         db.insert("student", null, cv);
     }
@@ -35,6 +36,8 @@ public class DBModel {
 
             db.insert("phone", null, cv);
         }
+
+
     }
 
     public void editStudent(Student student) {
@@ -55,6 +58,19 @@ public class DBModel {
 
     public void deleteResult(Student student) {
         Log.d(TAG, "deleteResult: add function here");
+    }
+
+    public void addPhotoToStudent(Student student, String photoPath) {
+        ContentValues cv = new ContentValues();
+
+        cv.put("first_name", student.getFirstName());
+        cv.put("last_name", student.getLastName());
+        cv.put("full_name", student.getFullName());
+        cv.put("photo", photoPath);
+
+        String[] whereValue =  {student.fullName};
+
+        db.update("student", cv,"full_name = ?" , whereValue);
     }
     /*
     public void addUser(User user){
