@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../../layout/custom_preview.xml" value="0.2935185185185185" />
+        <entry key="app/src/main/res/layout-sw600dp/ready_state.xml" value="0.2612704918032787" />
         <entry key="app/src/main/res/layout/activity_browse.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_choose_image.xml" value="0.21513157894736842" />
         <entry key="app/src/main/res/layout/activity_load_image.xml" value="0.21513157894736842" />

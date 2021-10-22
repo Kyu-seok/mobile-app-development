@@ -42,8 +42,8 @@ import javax.net.ssl.HttpsURLConnection;
 public class Test extends AppCompatActivity {
 
     private static final String TAG = "Test.java";
-    // public static final String BASE_URL = "https://10.0.2.2:8000/random/question";
-    public static final String BASE_URL = "https://192.168.219.101:8000/random/question";
+    public static final String BASE_URL = "https://10.0.2.2:8000/random/question";
+    // public static final String BASE_URL = "https://192.168.219.101:8000/random/question";
 
 
     Student studentTaking;
