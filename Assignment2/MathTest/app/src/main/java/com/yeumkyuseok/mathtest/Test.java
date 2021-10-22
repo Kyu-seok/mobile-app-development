@@ -1,8 +1,12 @@
 package com.yeumkyuseok.mathtest;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,8 +14,11 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +34,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -48,8 +56,10 @@ public class Test extends AppCompatActivity {
     Data data;
 
     // R.layout.ready_state.xml
-    Button btnStart, btnDelete;
-    TextView txtName, txtEmail, txtPhone;
+    Button btnStart, btnDelete, btnSendEmail;
+    TextView txtFirstName, txtLastName, txtMark;
+    ImageView imageView;
+    RecyclerView emailRecyclerView, phoneRecyclerView;
 
     // R.layout.question_normal_layout.xml
     Button btnPrev, btnNext, btnAns1, btnAns2, btnAns3, btnAns4, btnNormalQuit, btnNormalPass;
@@ -67,18 +77,39 @@ public class Test extends AppCompatActivity {
         data = new Data();
         data.load(this);
 
-        txtName = (TextView) findViewById(R.id.textNameReady);
-        txtEmail = (TextView) findViewById(R.id.textEmailReady);
-        txtPhone = (TextView) findViewById(R.id.textPhoneReady);
+        txtFirstName = (TextView) findViewById(R.id.textReadyFirstName);
+        txtLastName = (TextView) findViewById(R.id.textReadyLastName);
+        txtMark = (TextView) findViewById(R.id.textReadyMark);
         btnStart = (Button) findViewById(R.id.buttonStartFromReady);
         btnDelete = (Button) findViewById(R.id.buttonDeleteFromReady);
+        imageView = (ImageView) findViewById(R.id.imgReadyState);
+        emailRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewEmail);
+        phoneRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewPhone);
+        btnSendEmail = (Button) findViewById(R.id.buttonSendEmail);
 
         Intent intent = getIntent();
         studentTaking = (Student) intent.getExtras().get("student");
 
-        txtName.setText("Name : " + studentTaking.getFullName());
-        //txtEmail.setText("Email : " + studentTaking.getEmail());
-        //txtPhone.setText("Phone No : " + studentTaking.getPhoneNum());
+        txtFirstName.setText("First Name : " + studentTaking.getFirstName());
+        txtLastName.setText("Last Name : " + studentTaking.getLastName());
+        txtMark.setText("Mark : " + studentTaking.getMark());
+
+        data.loadPersonal(this, studentTaking);
+        EmailListAdapter emailListAdapter = new EmailListAdapter(this, data.tempEmails);
+        emailRecyclerView.setAdapter(emailListAdapter);
+        emailRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        EmailListAdapter phoneListAdapter = new EmailListAdapter(this, data.tempPhones);
+        phoneRecyclerView.setAdapter(phoneListAdapter);
+        phoneRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        if (studentTaking.getPhoto().contains("https")) {
+            Picasso.get().load(studentTaking.getPhoto()).into(imageView);
+        } else {
+            Bitmap bitmap = BitmapFactory.decodeFile(studentTaking.getPhoto());
+
+            imageView.setImageBitmap(bitmap);
+        }
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +126,29 @@ public class Test extends AppCompatActivity {
                 data.deleteStudent(studentTaking);
                 Intent intent = new Intent(Test.this, MainActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        btnSendEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                List<String> emailList = data.getEmail(studentTaking);
+
+                String[] emails = new String[emailList.size()];
+                for (int i = 0; i < emailList.size(); i++) {
+                    emails[i] =emailList.get(i);
+                }
+
+                String message = data.getResultMessage(studentTaking);
+
+                Intent email= new Intent(Intent.ACTION_SENDTO);
+                //email.setData(Uri.parse("mailto:your.email@gmail.com"));
+                email.setData(Uri.parse("mailto:"));
+                email.putExtra(Intent.EXTRA_EMAIL, emails);
+                email.putExtra(Intent.EXTRA_SUBJECT, "result");
+                email.putExtra(Intent.EXTRA_TEXT, message);
+                startActivity(email);
             }
         });
     }

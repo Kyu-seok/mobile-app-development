@@ -16,6 +16,9 @@ public class Data implements Serializable {
     public List<EmailAddr> emails = new ArrayList<>();
     public List<Phone> phones = new ArrayList<>();
 
+    public List<String> tempEmails = new ArrayList<>();
+    public List<String> tempPhones = new ArrayList<>();
+
     DBModel dbModel = new DBModel();
     Cursor cursor;
 
@@ -39,6 +42,28 @@ public class Data implements Serializable {
             dbCursor = new DBCursor(cursor);
             results.add(dbCursor.getResult());
         }
+
+    }
+
+    public void loadPersonal(Context context, Student student) {
+        tempEmails.clear();
+        tempPhones.clear();
+
+        DBHelper dbHelper = new DBHelper(context);
+        dbModel.db = dbHelper.getReadableDatabase();
+        DBCursor dbCursor;
+
+        cursor = dbModel.db.rawQuery("SELECT * FROM email WHERE full_NAME =" + "\""+student.getFullName()+"\"" , null);
+        while (cursor.moveToNext()) {
+            dbCursor = new DBCursor(cursor);
+            tempEmails.add(dbCursor.getStringEmail());
+        }
+
+        cursor = dbModel.db.rawQuery("SELECT * FROM phone WHERE full_NAME =" + "\""+student.getFullName()+"\"" , null);
+        while (cursor.moveToNext()) {
+            dbCursor = new DBCursor(cursor);
+            tempPhones.add(dbCursor.getStringPhone());
+        }
     }
 
     public void sortA() {
@@ -59,6 +84,29 @@ public class Data implements Serializable {
             dbCursor = new DBCursor(cursor);
             tempStudents.add(dbCursor.getStudent());
         }
+    }
+
+    public List<String> getEmail(Student student) {
+        List<String> list = new ArrayList<>();
+        DBCursor dbCursor;
+        cursor = dbModel.db.rawQuery("SELECT * FROM email WHERE full_NAME =" + "\""+student.getFullName()+"\"" , null);
+        while (cursor.moveToNext()) {
+            dbCursor = new DBCursor(cursor);
+            list.add(dbCursor.getStringEmail());
+        }
+        return list;
+    }
+
+    public String getResultMessage(Student student) {
+        String msg = "";
+        DBCursor dbCursor;
+        cursor = dbModel.db.rawQuery("SELECT * FROM result WHERE full_NAME =" + "\""+student.getFullName()+"\"" , null);
+        while (cursor.moveToNext()) {
+            dbCursor = new DBCursor(cursor);
+            msg = "" + dbCursor.getResultMessage();
+        }
+
+        return msg;
     }
 
     public void addStudent(Student student) {

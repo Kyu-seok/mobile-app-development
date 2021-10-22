@@ -9,6 +9,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class RegisterActivity extends AppCompatActivity {
 
     Student student;
@@ -54,7 +59,6 @@ public class RegisterActivity extends AppCompatActivity {
         data.load(this);
 
 
-
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +97,6 @@ public class RegisterActivity extends AppCompatActivity {
                     if (textEmail10.getText().length() > 0) {
                         emailAddr.addEmail(textEmail10.getText().toString());
                     }
-                    data.addEmail(emailAddr);
 
                     if (textPhoneNo1.getText().length() > 0) {
                         phone.addPhoneNo(textPhoneNo1.getText().toString());
@@ -125,21 +128,74 @@ public class RegisterActivity extends AppCompatActivity {
                     if (textPhoneNo10.getText().length() > 0) {
                         phone.addPhoneNo(textPhoneNo10.getText().toString());
                     }
-                    if (textPhoneNo1.getText().length() > 0) {
-                        phone.addPhoneNo(textPhoneNo1.getText().toString());
+
+
+                    if (allEmailsAreValid(emailAddr.getEmails()) && allPhonesAreValid(phone.getPhoneNumbers())) {
+                        data.addEmail(emailAddr);
+                        data.addPhone(phone);
+
+                        student.setEmails(emailAddr.getEmails());
+                        student.setPhones(phone.getPhoneNumbers());
+
+                        Intent intent = new Intent(RegisterActivity.this, ChooseImageActivity.class);
+                        intent.putExtra("student",student);
+                        startActivity(intent);
+                    } else {
+                        emailAddr.emails.clear();
+                        phone.getPhoneNumbers().clear();
+                        Toast.makeText(RegisterActivity.this, "Please enter valid email and phoneNumber", Toast.LENGTH_SHORT).show();
                     }
-                    data.addPhone(phone);
 
-                    student.setEmails(emailAddr.emails);
-                    student.setPhones(phone.getPhoneNumbers());
-
-                    Intent intent = new Intent(RegisterActivity.this, ChooseImageActivity.class);
-                    intent.putExtra("student",student);
-                    startActivity(intent);
                 } else {
                     Toast.makeText(RegisterActivity.this, "Please enter first & last name", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+
+    }
+
+    public boolean allPhonesAreValid(List<String> phones) {
+        boolean valid = true;
+        for (int i = 0; i < phones.size(); i++) {
+            if (!isNumeric(phones.get(i))) {
+                valid = false;
+            }
+        }
+        return valid;
+    }
+
+    private Pattern pattern = Pattern.compile("-?\\d+(\\.\\d+)?");
+
+    public boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        return pattern.matcher(strNum).matches();
+    }
+
+
+    public boolean allEmailsAreValid(List<String> emails) {
+        boolean valid = true;
+        for (int i = 0; i < emails.size(); i++) {
+            if (!validateEmailAddress(emails.get(i))) {
+                valid = false;
+            }
+        }
+        return valid;
+    }
+
+    public boolean validateEmailAddress(String emailAddress) {
+        Pattern regexPattern;
+        Matcher regMatcher;
+
+        regexPattern = Pattern.compile("^[(a-zA-Z-0-9-\\_\\+\\.)]+@[(a-z-A-z)]+\\.[(a-zA-z)]{2,3}$");
+        regMatcher   = regexPattern.matcher(emailAddress);
+        if(regMatcher.matches()) {
+            return true;
+        } else {
+            // Toast.makeText(this, "Wrong email format", Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 }

@@ -7,51 +7,57 @@
 
     <ImageView
         android:id="@+id/imgReadyState"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="64dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <TextView
-        android:id="@+id/textNameReady"
+        android:id="@+id/textReadyFirstName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="64dp"
         android:text="TextView"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imgReadyState"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textEmailReady"
+        android:id="@+id/textReadyLastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/textNameReady"
-        app:layout_constraintTop_toBottomOf="@+id/textNameReady" />
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textReadyFirstName"
+        app:layout_constraintTop_toBottomOf="@+id/textReadyFirstName" />
 
     <TextView
-        android:id="@+id/textPhoneReady"
+        android:id="@+id/textReadyMark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/textEmailReady"
-        app:layout_constraintTop_toBottomOf="@+id/textEmailReady" />
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textReadyLastName"
+        app:layout_constraintTop_toBottomOf="@+id/textReadyLastName" />
 
     <Button
         android:id="@+id/buttonStartFromReady"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="200dp"
         android:text="Start Test"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonDeleteFromReady"
@@ -63,4 +69,38 @@
         android:text="Delete Student"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonSendEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
+        android:text="send Email"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewEmail"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textReadyMark" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPhone"
+        android:layout_width="203dp"
+        android:layout_height="300dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recyclerViewEmail"
+        app:layout_constraintTop_toTopOf="@+id/recyclerViewEmail" />
 </androidx.constraintlayout.widget.ConstraintLayout>
