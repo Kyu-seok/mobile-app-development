@@ -13,8 +13,9 @@ public class DBCursor extends CursorWrapper {
         String firstName = getString(getColumnIndex("first_name"));
         String lastName = getString(getColumnIndex("last_name"));
         String photo = getString(getColumnIndex("photo"));
+        int mark = getInt(getColumnIndex("mark"));
 
-        Student student = new Student(firstName, lastName);
+        Student student = new Student(firstName, lastName, mark);
         student.setPhoto(photo);
 
         // return new Student(firstName, lastName);
@@ -22,13 +23,12 @@ public class DBCursor extends CursorWrapper {
     }
 
     public Result getResult() {
-        String firstName = getString(getColumnIndex("first_name"));
-        String lastName = getString(getColumnIndex("last_name"));
+        String fullName = getString(getColumnIndex("full_NAME"));
         int score = getInt(getColumnIndex("score"));
         String startTime = getString(getColumnIndex("start_time"));
-        int time_taken = getInt(getColumnIndex("time_taken"));
+        String time_taken = getString(getColumnIndex("time_taken"));
 
-        return new Result(firstName, lastName, score, startTime, time_taken);
+        return new Result(fullName, score, startTime, time_taken);
     }
 
 }

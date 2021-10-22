@@ -11,6 +11,7 @@ public class Data implements Serializable {
     private static final String TAG = "Data";
 
     public List<Student> students = new ArrayList<>();
+    public List<Student> tempStudents = new ArrayList<>();
     public List<Result> results = new ArrayList<>();
     public List<EmailAddr> emails = new ArrayList<>();
     public List<Phone> phones = new ArrayList<>();
@@ -40,9 +41,38 @@ public class Data implements Serializable {
         }
     }
 
+    public void sortA() {
+        tempStudents.clear();
+        DBCursor dbCursor;
+        cursor = dbModel.db.rawQuery("SELECT * FROM student ORDER BY mark ASC",null);
+        while (cursor.moveToNext()) {
+            dbCursor = new DBCursor(cursor);
+            tempStudents.add(dbCursor.getStudent());
+        }
+    }
+
+    public void sortD() {
+        tempStudents.clear();
+        DBCursor dbCursor;
+        cursor = dbModel.db.rawQuery("SELECT * FROM student ORDER BY mark DESC", null);
+        while (cursor.moveToNext()) {
+            dbCursor = new DBCursor(cursor);
+            tempStudents.add(dbCursor.getStudent());
+        }
+    }
+
     public void addStudent(Student student) {
         students.add(student);
         dbModel.addStudent(student);
+    }
+
+    public void addMark(Student student, int mark) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getFullName().equals(student.getFullName())) {
+                students.get(i).setMark(mark);
+            }
+        }
+        dbModel.addMark(student, mark);
     }
 
     public void addEmail(EmailAddr emailAddr) {
@@ -57,6 +87,18 @@ public class Data implements Serializable {
 
     public void addPhotoToStudent(Student student, String photoPath) {
         dbModel.addPhotoToStudent(student, photoPath);
+    }
+
+    public void deleteStudent(Student student) {
+        students.remove(student);
+        dbModel.deleteStudent(student);
+    }
+
+    public void addResult(String fullName, int score, String startTime, String timeTaken) {
+
+        Result result = new Result(fullName, score, startTime, timeTaken);
+        results.add(result);
+        dbModel.addResult(fullName, score, startTime, timeTaken);
     }
 
     /*

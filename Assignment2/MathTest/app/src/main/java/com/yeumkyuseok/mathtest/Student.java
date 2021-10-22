@@ -10,13 +10,14 @@ public class Student implements Serializable {
     List<String> phones;
     int mark;
 
-    public Student(String firstName, String lastName) {
+    public Student(String firstName, String lastName, int mark) {
         this.firstName = firstName;
         this.lastName = lastName;
         // this.phoneNum = phoneNum;
         // this.email = email;
         this.photo = "";
         this.fullName = firstName + " " + lastName;
+        this.mark = mark;
     }
 
 

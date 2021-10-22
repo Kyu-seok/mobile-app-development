@@ -36,8 +36,20 @@ public class DBModel {
 
             db.insert("phone", null, cv);
         }
+    }
 
+    public void addMark(Student student, int mark) {
+        ContentValues cv = new ContentValues();
 
+        cv.put("first_name", student.getFirstName());
+        cv.put("last_name", student.getLastName());
+        cv.put("full_name", student.getFullName());
+        cv.put("photo", student.getPhoto());
+        cv.put("mark", mark);
+
+        String[] whereValue =  {student.getFullName()};
+
+        db.update("student", cv, "full_name = ?" , whereValue);
     }
 
     public void editStudent(Student student) {
@@ -45,11 +57,18 @@ public class DBModel {
     }
 
     public void deleteStudent(Student student) {
-        Log.d(TAG, "deleteStudent: add function here");
+        String[] whereValue = {String.valueOf(student.getFullName())};
+        db.delete("student", "full_name = ?", whereValue);
     }
 
-    public void addResult(Student student, int score, String startTime, int timeTaken) {
-        Log.d(TAG, "addResult: add function here");
+    public void addResult(String fullName, int score, String startTime, String timeTaken) {
+        ContentValues cv = new ContentValues();
+        cv.put("full_NAME", fullName);
+        cv.put("score", score);
+        cv.put("start_time", startTime);
+        cv.put("time_taken", timeTaken);
+
+        db.insert("result", null, cv);
     }
 
     public void editResult(Student student, int score, String startTime, int timeTaken) {

@@ -47,7 +47,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.textStudentName.setText(tempStudents.get(position).getFullName());
-        holder.textStudentMark.setText(tempStudents.get(position).getMark()+"%");
+        holder.textStudentMark.setText(tempStudents.get(position).getMark()+" marks");
         //holder.imgAvatar.setImageResource(R.drawable.student);
         if (tempStudents.get(position).getPhoto() == null ) {
             Log.d(TAG, "onBindViewHolder: " + tempStudents.get(position).fullName + " photoPath : " + tempStudents.get(position).getPhoto());

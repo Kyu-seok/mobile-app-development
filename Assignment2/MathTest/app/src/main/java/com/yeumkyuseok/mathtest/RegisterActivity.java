@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if ((textFirstName.getText().length() > 0 ) && (textLastName.getText().length() > 0 )) {
-                    student = new Student((textFirstName.getText().toString()), textLastName.getText().toString());
+                    student = new Student((textFirstName.getText().toString()), textLastName.getText().toString(), 0);
                     // data.addStudent(student)f;
                     emailAddr = new EmailAddr(student.getFullName());
                     phone = new Phone(student.getFullName());

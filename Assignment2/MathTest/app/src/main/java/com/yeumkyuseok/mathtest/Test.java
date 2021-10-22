@@ -24,6 +24,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Iterator;
 import java.util.Locale;
 
@@ -33,16 +35,17 @@ public class Test extends AppCompatActivity {
 
     private static final String TAG = "Test.java";
     // public static final String BASE_URL = "https://10.0.2.2:8000/random/question";
-    public static final String BASE_URL = "https://192.168.219.106:8000/random/question";
+    public static final String BASE_URL = "https://192.168.219.101:8000/random/question";
 
 
     Student studentTaking;
     int markScored = 0, questionNumber = 0,  currPage, totalPage, totalAnsButton, currBtnNum, answer;
     long timeLeftInMillis;
-    LocalDateTime dateTime;
+    LocalDateTime dateTime, endTime;
     JSONObject jsonObject;
     JSONArray options;
     CountDownTimer countDownTimer;
+    Data data;
 
     // R.layout.ready_state.xml
     Button btnStart, btnDelete;
@@ -61,6 +64,9 @@ public class Test extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ready_state);
 
+        data = new Data();
+        data.load(this);
+
         txtName = (TextView) findViewById(R.id.textNameReady);
         txtEmail = (TextView) findViewById(R.id.textEmailReady);
         txtPhone = (TextView) findViewById(R.id.textPhoneReady);
@@ -77,7 +83,18 @@ public class Test extends AppCompatActivity {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dateTime = LocalDateTime.now();
+
                 doTest();
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                data.deleteStudent(studentTaking);
+                Intent intent = new Intent(Test.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -271,6 +288,20 @@ public class Test extends AppCompatActivity {
             public void onClick(View v) {
                 countDownTimer.cancel();
                 // todo : implement resutl intent
+                endTime = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                Log.d(TAG, "onClick: " + dateTime.format(formatter));
+                Log.d(TAG, "onClick: endTime.getSecond() : " + endTime.getSecond());
+                Log.d(TAG, "onClick: dateTime.getSecond() : " + dateTime.getSecond());
+                long minutes = ChronoUnit.MINUTES.between(dateTime, endTime);
+                long seconds = ChronoUnit.SECONDS.between(dateTime, endTime);
+                String timeTaken = minutes + "min " + seconds + " sec";
+                Log.d(TAG, "onClick: timeTaken : " + timeTaken);
+                data.addResult(studentTaking.getFullName(), markScored, dateTime.format(formatter), timeTaken);
+                data.addMark(studentTaking, markScored);
+                Intent intent = new Intent(Test.this, MainActivity.class);
+                startActivity(intent);
+
             }
         });
 
@@ -307,14 +338,20 @@ public class Test extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 countDownTimer.cancel();
-                int input = Integer.parseInt(txtBlankAnswer.getText().toString());
-                if (input == answer) {
-                    Toast.makeText(Test.this, "correct", Toast.LENGTH_SHORT).show();
-                    markScored += 10;
-                } else {
+                try {
+                    int input = Integer.parseInt(txtBlankAnswer.getText().toString());
+                    if (input == answer) {
+                        Toast.makeText(Test.this, "correct", Toast.LENGTH_SHORT).show();
+                        markScored += 10;
+                    } else {
+                        Toast.makeText(Test.this, "wrong", Toast.LENGTH_SHORT).show();
+                        markScored -= 5;
+                    }
+                } catch (NumberFormatException e) {
                     Toast.makeText(Test.this, "wrong", Toast.LENGTH_SHORT).show();
                     markScored -= 5;
                 }
+
                 doTest();
             }
         });
@@ -331,7 +368,19 @@ public class Test extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 countDownTimer.cancel();
-                // set content view
+                endTime = LocalDateTime.now();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+                Log.d(TAG, "onClick: " + dateTime.format(formatter));
+                Log.d(TAG, "onClick: endTime.getSecond() : " + endTime.getSecond());
+                Log.d(TAG, "onClick: dateTime.getSecond() : " + dateTime.getSecond());
+                long minutes = ChronoUnit.MINUTES.between(dateTime, endTime);
+                long seconds = ChronoUnit.SECONDS.between(dateTime, endTime);
+                String timeTaken = minutes + "min " + seconds + " sec";
+                Log.d(TAG, "onClick: timeTaken : " + timeTaken);
+                data.addResult(studentTaking.getFullName(), markScored, dateTime.format(formatter), timeTaken);
+                data.addMark(studentTaking, markScored);
+                Intent intent = new Intent(Test.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 

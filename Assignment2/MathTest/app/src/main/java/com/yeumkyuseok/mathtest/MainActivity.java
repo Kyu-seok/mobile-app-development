@@ -14,9 +14,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView studentRecyclerView;
-    Button btnManRegister, btnLoadContact;
+    Button btnManRegister, btnSort;
     List<Student> studentList;
     Data data;
+    boolean isAsc = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.student_list_layout);
 
         btnManRegister = findViewById(R.id.buttonManualRegister);
-        btnLoadContact = findViewById(R.id.buttonLoadContact);
+        btnSort = findViewById(R.id.buttonSortList);
 
         DBHelper db = new DBHelper(this);
         data = new Data();
@@ -45,5 +46,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isAsc == true) {
+                    data.sortA();
+                    isAsc = false;
+                    StudentListAdapter studentListAdapter = new StudentListAdapter(MainActivity.this, data.tempStudents);
+                    studentRecyclerView.setAdapter(studentListAdapter);
+                    studentRecyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                } else {
+                    data.sortD();
+                    isAsc = true;
+                    StudentListAdapter studentListAdapter = new StudentListAdapter(MainActivity.this, data.tempStudents);
+                    studentRecyclerView.setAdapter(studentListAdapter);
+                    studentRecyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                }
+            }
+        });
     }
 }

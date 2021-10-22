@@ -2,12 +2,11 @@ package com.yeumkyuseok.mathtest;
 
 public class Result {
 
-    String firstName, lastName, startTime;
-    int score, time_taken;
+    String fullName, startTime, time_taken;
+    int score;
 
-    public Result(String firstName, String lastName, int score, String startTime, int time_taken) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Result(String fullName, int score, String startTime, String time_taken) {
+        this.fullName = fullName;
         this.startTime = startTime;
         this.score = score;
         this.time_taken = time_taken;
