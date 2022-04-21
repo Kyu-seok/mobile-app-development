@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Prac_Grader.iml" filepath="$PROJECT_DIR$/.idea/modules/Prac_Grader.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Prac_Grader.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Prac_Grader.app.iml" />
-    </modules>
-  </component>
-</project>
